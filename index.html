@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>EmeraldIsle.exe - 3D Vesak Multiverse</title>
+    <title>EmeraldIsle - 3D Vesak Multiverse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -70,8 +70,8 @@
             border: 1px solid rgba(255, 215, 0, 0.15);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .glow-gold {
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        .glow-emerald {
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.8); /* Hex #10B981 */
         }
         .glow-neon {
             text-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
@@ -140,7 +140,7 @@
                 <div class="flex items-center gap-2 md:gap-3">
                     <span class="text-2xl md:text-3xl text-vesak-amber animate-pulse" id="header-icon">🏮</span>
                     <div class="min-w-0">
-                        <h1 class="font-mono font-bold text-sm md:text-2xl tracking-widest text-vesak-gold glow-gold transition-colors duration-500 truncate" id="app-title">EMERALDISLE/h1>
+                        <h1 class="font-mono font-bold text-sm md:text-2xl tracking-widest text-vesak-gold glow-emerald transition-colors duration-500 truncate" id="app-title">EMERALDISLE/h1>
                         <p class="text-[8px] md:text-[10px] text-gray-400 font-light mt-0.5 tracking-wider uppercase truncate" id="app-subtitle">Cyber-traditional Vesak Multiverse Exhibition</p>
                         <div class="current-design-badge truncate" id="current-design-badge">Classic Atapattam</div>
                     </div>
@@ -2073,7 +2073,7 @@
                 internalBulb.color.setHex(0x00f0ff);
                 buildSceneryDecorations(dimensionId);
             } else if (dimensionId === 'water') {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-neonBlue glow-gold";
+                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-neonBlue glow-emerald";
                 appTitle.innerText = "EMERALDISLE.EXE";
                 headerGlass.style.borderColor = "rgba(0, 240, 255, 0.4)";
                 footerGlass.style.borderColor = "rgba(0, 240, 255, 0.4)";
@@ -2085,7 +2085,7 @@
                 internalBulb.color.setHex(0x7fdbff);
                 buildSceneryDecorations(dimensionId);
             } else if (dimensionId === 'crazy') {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-purple glow-gold";
+                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-purple glow-emerald";
                 appTitle.innerText = "EMERALDISLE.EXE";
                 headerGlass.style.borderColor = "rgba(211, 0, 197, 0.4)";
                 footerGlass.style.borderColor = "rgba(211, 0, 197, 0.4)";
@@ -2097,7 +2097,7 @@
                 internalBulb.color.setHex(0xff00ff);
                 buildSceneryDecorations(dimensionId);
             } else {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-gold glow-gold";
+                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-gold glow-emerald";
                 appTitle.innerText = "EMERALDISLE.EXE";
                 headerGlass.style.borderColor = "rgba(255, 215, 0, 0.15)";
                 footerGlass.style.borderColor = "rgba(255, 215, 0, 0.15)";
