@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  font-family: Inter, Arial, sans-serif;
+  background: radial-gradient(circle at top, #0e0b2c, #03020b 60%);
+  color: #f7f3ff;
+}
+#canvasHolder {
+  width: 100vw;
+  height: 100vh;
+}
+#ui {
+  position: absolute;
+  z-index: 10;
+  left: 20px;
+  top: 20px;
+  max-width: 360px;
+  padding: 18px 20px;
+  background: rgba(8, 5, 19, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+}
+#ui h1 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+}
+#ui p {
+  margin: 0 0 12px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+.controls {
+  display: grid;
+  gap: 10px;
+}
+input[type="range"] {
+  width: 100%;
+}
+button {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #9e6bff, #43b6ff);
+  color: white;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+button:hover {
+  opacity: 0.95;
+}
+#videoPanel {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+}
+video {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
