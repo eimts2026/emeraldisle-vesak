@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- QR Code Generator Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
@@ -27,10 +26,8 @@
                             royal: '#4169E1',
                             amber: '#FFBF00',
                             charcoal: '#0a0d14',
-                            neonGreen: '#39FF14',
                             neonBlue: '#00F0FF',
-                            aqua: '#00FFFF',
-                            purple: '#D300C5'
+                            aqua: '#00FFFF'
                         }
                     }
                 }
@@ -53,14 +50,8 @@
         .scenery-traditional-day {
             background: linear-gradient(to top, #bae6fd 0%, #ffedd5 50%, #fef08a 100%);
         }
-        .scenery-techno {
-            background: radial-gradient(circle at center, #01130d 0%, #000402 100%);
-        }
         .scenery-water {
             background: radial-gradient(circle at center, #012133 0%, #00080f 100%);
-        }
-        .scenery-crazy {
-            background: radial-gradient(circle at center, #2b0124 0%, #080008 100%);
         }
 
         .glass-panel {
@@ -72,9 +63,6 @@
         }
         .glow-emerald {
             text-shadow: 0 0 15px rgba(16, 185, 129, 0.8); /* Hex #10B981 */
-        }
-        .glow-neon {
-            text-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
         }
         .glow-btn:hover {
             box-shadow: 0 0 15px rgba(255, 191, 0, 0.4);
@@ -125,16 +113,12 @@
 </head>
 <body class="w-screen h-screen relative select-none text-gray-200 scenery-traditional" id="body-root">
 
-    <!-- Audio Element for High Fidelity Ambient Music -->
     <audio id="bg-music" loop preload="auto"></audio>
 
-    <!-- 3D Canvas Mounting Point -->
     <div id="canvas-container" class="absolute inset-0 z-0 touch-none"></div>
 
-    <!-- Full-screen HUD wrapper - Keep as pointer-events-none initially so clicks can pass to the canvas -->
     <div class="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-3 md:p-6 transition-all duration-700 ease-in-out transform scale-100" id="hud-container">
         
-        <!-- Header Section -->
         <header class="w-full flex justify-between items-start pointer-events-auto fade-hud gap-2">
             <div class="glass-panel p-3 md:p-4 rounded-2xl max-w-[70%] md:max-w-md shadow-2xl" id="header-glass">
                 <div class="flex items-center gap-2 md:gap-3">
@@ -147,9 +131,7 @@
                 </div>
             </div>
             
-            <!-- Quick Action Buttons -->
             <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
-                <!-- QR Code Toggle Button -->
                 <button onclick="toggleQRModal(true)" class="p-2.5 md:p-3 bg-black/60 hover:bg-black/80 text-vesak-amber hover:text-white rounded-full transition-all border border-vesak-amber/30 hover:border-white/30 flex items-center justify-center pointer-events-auto shadow-lg" title="Mobile Sharing QR Code">
                     <i class="fa-solid fa-qrcode text-base md:text-xl animate-pulse"></i>
                 </button>
@@ -165,35 +147,24 @@
             </div>
         </header>
 
-        <!-- Controls Console at the Bottom -->
         <footer class="w-full max-w-5xl mx-auto flex flex-col gap-2.5 md:gap-4 pointer-events-auto fade-hud">
             
             <div class="glass-panel p-3.5 md:p-5 rounded-3xl shadow-2xl flex flex-col lg:flex-row gap-4 lg:gap-6 items-center justify-between" id="footer-glass">
                 
-                <!-- Reality Selection -->
                 <div class="flex flex-col gap-1.5 w-full lg:w-auto">
                     <span class="text-[10px] md:text-xs uppercase font-bold tracking-widest text-vesak-amber/80 px-1" id="label-modes">Dimensional Realities</span>
-                    <div class="grid grid-cols-4 gap-1.5 md:gap-2">
+                    <div class="grid grid-cols-2 gap-1.5 md:gap-2">
                         <button onclick="setDimension('traditional')" id="dim-btn-traditional" class="glow-btn bg-vesak-amber/20 text-white font-medium text-[9px] md:text-xs py-2 md:py-3 px-1 md:px-2 rounded-xl border border-vesak-amber/40 transition-all flex flex-col items-center gap-0.5 md:gap-1">
                             <span class="text-base md:text-lg">🕉️</span>
                             <span class="scale-90 font-semibold tracking-wide">Traditional</span>
-                        </button>
-                        <button onclick="setDimension('techno')" id="dim-btn-techno" class="glow-btn bg-black/40 text-gray-400 font-medium text-[9px] md:text-xs py-2 md:py-3 px-1 md:px-2 rounded-xl border border-white/5 transition-all flex flex-col items-center gap-0.5 md:gap-1">
-                            <span class="text-base md:text-lg">⚡</span>
-                            <span class="scale-90 font-semibold tracking-wide">Techno Grid</span>
                         </button>
                         <button onclick="setDimension('water')" id="dim-btn-water" class="glow-btn bg-black/40 text-gray-400 font-medium text-[9px] md:text-xs py-2 md:py-3 px-1 md:px-2 rounded-xl border border-white/5 transition-all flex flex-col items-center gap-0.5 md:gap-1">
                             <span class="text-base md:text-lg">💧</span>
                             <span class="scale-90 font-semibold tracking-wide">Water Crawl</span>
                         </button>
-                        <button onclick="setDimension('crazy')" id="dim-btn-crazy" class="glow-btn bg-black/40 text-gray-400 font-medium text-[9px] md:text-xs py-2 md:py-3 px-1 md:px-2 rounded-xl border border-white/5 transition-all flex flex-col items-center gap-0.5 md:gap-1">
-                            <span class="text-base md:text-lg">🌀</span>
-                            <span class="scale-90 font-semibold tracking-wide">Crazy Cosmos</span>
-                        </button>
                     </div>
                 </div>
 
-                <!-- Multi-Design Cyclers -->
                 <div class="flex flex-col gap-1.5 w-full lg:w-auto border-t lg:border-t-0 lg:border-x border-white/10 pt-3 lg:pt-0 lg:px-6">
                     <span class="text-[10px] md:text-xs uppercase font-bold tracking-widest text-vesak-amber/80 px-1 text-center" id="label-designs">Cyclers (Tap to Rotate Style)</span>
                     <div class="flex flex-wrap gap-1.5 md:gap-2 justify-center">
@@ -212,7 +183,6 @@
                     </div>
                 </div>
 
-                <!-- Settings and Cinematic Toggles -->
                 <div class="flex flex-col gap-1.5 w-full lg:w-56">
                     <span class="text-[10px] md:text-xs uppercase font-bold tracking-widest text-vesak-amber/80 px-1" id="label-exhibition">Exhibition Controls</span>
                     <button onclick="toggleCinematic(true, event)" class="glow-btn bg-gradient-to-r from-red-600/30 to-amber-500/20 hover:from-red-600/40 hover:to-amber-500/30 text-white font-semibold text-[10px] md:text-xs py-2 md:py-2.5 px-4 rounded-xl border border-red-500/40 transition-all flex items-center justify-center gap-2 shadow-lg">
@@ -230,7 +200,6 @@
 
             </div>
 
-            <!-- Hint instructions -->
             <div class="text-center text-[9px] md:text-[11px] text-gray-500 font-light flex items-center justify-center gap-1.5">
                 <i class="fa-solid fa-arrows-to-eye"></i> Drag to Rotate | Pinch to Zoom | Explore Multiverse
             </div>
@@ -238,7 +207,6 @@
 
     </div>
 
-    <!-- Detailed Design Information Modal (Glassmorphic Backdrop) -->
     <div id="info-modal" class="absolute inset-0 z-30 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-500">
         <div class="glass-panel max-w-md w-full p-5 md:p-6 rounded-3xl border-vesak-amber/30 shadow-2xl relative transform scale-95 transition-transform duration-500 max-h-[85vh] flex flex-col" id="info-modal-card">
             <button onclick="toggleInfoModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 w-8 h-8 rounded-full flex items-center justify-center z-10">
@@ -272,7 +240,6 @@
         </div>
     </div>
 
-    <!-- QR Code Sharing Modal -->
     <div id="qr-modal" class="absolute inset-0 z-30 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-500">
         <div class="glass-panel max-w-sm w-full p-5 md:p-6 rounded-3xl border-vesak-gold/30 shadow-2xl relative transform scale-95 transition-transform duration-500 text-center max-h-[85vh] flex flex-col" id="qr-modal-card">
             <button onclick="toggleQRModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 w-8 h-8 rounded-full flex items-center justify-center">
@@ -284,7 +251,6 @@
                 <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Scan with your mobile device to join</p>
             </div>
             
-            <!-- QR Mounting Element -->
             <div class="overflow-y-auto custom-scroll py-2">
                 <div class="flex justify-center p-3 bg-white rounded-2xl mx-auto w-32 h-32 md:w-36 md:h-36 items-center shadow-lg" id="qr-code-element"></div>
             </div>
@@ -296,7 +262,6 @@
         </div>
     </div>
 
-    <!-- Cinematic Exit Overlay -->
     <div id="cinematic-overlay" class="absolute inset-0 z-20 pointer-events-none opacity-0 flex flex-col justify-end p-6 transition-all duration-1000 cursor-pointer bg-transparent" style="display: none;">
         <div class="w-full text-center pb-8 animate-bounce pointer-events-none">
             <span class="bg-black/80 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/10 text-[10px] md:text-xs tracking-widest uppercase font-semibold text-gray-300">
@@ -305,7 +270,6 @@
         </div>
     </div>
 
-    <!-- Scripts for 3D engine, controllers, and shaders -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
@@ -318,7 +282,6 @@
         const EXH_SHARING_URL = "https://eimts2026.github.io/emeraldisle-vesak/"; 
         
         // 2. High Quality Background Loop Song 
-        // -> CHANGE THIS to your downloaded audio filename or relative folder path (e.g. "palms.mp3")
         const BACKGROUND_MUSIC_URL = "Calima - Summer (freetouse.com).mp3"; 
         
         // =========================================================================
@@ -406,7 +369,7 @@
             `,
             fragmentShader: `
                 uniform float uTime;
-                uniform int uMode; // 0: Trad, 1: Techno, 2: Water, 3: Crazy
+                uniform int uMode; // 0: Trad, 2: Water
                 uniform vec3 uColor;
                 uniform float uFlicker;
                 varying vec2 vUv;
@@ -422,21 +385,6 @@
                         float edgeGlow = dot(vNormal, vec3(0.0, 0.0, 1.0));
                         edgeGlow = clamp(1.0 - edgeGlow, 0.0, 1.0);
                         finalColor += vec3(1.0, 0.7, 0.3) * pow(edgeGlow, 3.0) * (0.3 + uFlicker * 0.15);
-                    } 
-                    else if (uMode == 1) {
-                        // Techno Cyber grid line and scanline
-                        float scanline = sin(vLocalPosition.y * 14.0 - uTime * 6.5) * 0.5 + 0.5;
-                        scanline = pow(scanline, 10.0);
-                        
-                        float gridX = step(0.94, fract(vUv.x * 7.0));
-                        float gridY = step(0.94, fract(vUv.y * 7.0));
-                        float grid = max(gridX, gridY) * 0.45;
-
-                        float dataBits = step(0.96, fract(vUv.y * 18.0 + uTime * 4.0)) * step(0.85, fract(vUv.x * 8.0)) * 0.6;
-
-                        finalColor = mix(uColor, vec3(0.0, 1.0, 0.75), scanline * 0.75);
-                        finalColor += vec3(0.1, 0.8, 1.0) * grid + vec3(0.0, 1.0, 0.2) * dataBits;
-                        alpha = 0.85;
                     } 
                     else if (uMode == 2) {
                         // Water Crawl undulations
@@ -454,13 +402,6 @@
                         finalColor = mix(uColor, deepWaterColor, 0.45);
                         finalColor += highlights * waterPattern * 0.7;
                         alpha = 0.82;
-                    } 
-                    else if (uMode == 3) {
-                        // Cosmic rainbow loops
-                        float waveIndex = fract(vLocalPosition.y * 0.7 + vLocalPosition.x * 0.7 + uTime * 1.1);
-                        vec3 rainbowColor = 0.5 + 0.5 * cos(6.28318 * (waveIndex + vec3(0.0, 0.33, 0.67)));
-                        finalColor = mix(uColor, rainbowColor, 0.85);
-                        alpha = 0.93;
                     }
 
                     float softCenterProjection = abs(dot(vNormal, vec3(0.0, 1.0, 0.0))) * 0.18;
@@ -502,17 +443,6 @@
             goldFrame: 0xB8860B
         };
 
-        // TECHNO: Cold neon cyber grid palette
-        const technoColors = {
-            neonGreen: 0x00FF41,
-            neonBlue: 0x00F0FF,
-            neonPurple: 0xBF00FF,
-            neonOrange: 0xFF6600,
-            cyberBlack: 0x0c0f12,
-            hologramCyan: 0x00FFFF,
-            electricPink: 0xFF007F
-        };
-
         // WATER: Bioluminescent deep ocean palette
         const waterColors = {
             deepBlue: 0x003388,
@@ -522,17 +452,6 @@
             shimmerTeal: 0x20B2AA,
             coral: 0xFF6B6B,
             biolum: 0x7FFF00
-        };
-
-        // CRAZY: Psychedelic neon cosmic palette
-        const crazyColors = {
-            psychedelicPink: 0xFF1493,
-            electricYellow: 0xFFFF00,
-            purpleGlow: 0x9400D3,
-            radioactiveOrange: 0xFF4500,
-            alienGreen: 0x39FF14,
-            hotPink: 0xFF69B4,
-            cosmicBlue: 0x4040FF
         };
 
         const lanternDesigns = [
@@ -632,13 +551,7 @@
 
             ctx.clearRect(0, 0, size, size);
 
-            if (mode === 'techno') {
-                ctx.fillStyle = '#39FF14';
-                ctx.font = 'bold 36px monospace';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(Math.random() > 0.5 ? '1' : '0', size / 2, size / 2);
-            } else if (mode === 'water') {
+            if (mode === 'water') {
                 const grad = ctx.createRadialGradient(size/2, size/2, 2, size/2, size/2, size/2 - 2);
                 grad.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
                 grad.addColorStop(0.3, 'rgba(127, 219, 255, 0.4)');
@@ -648,13 +561,6 @@
                 ctx.beginPath();
                 ctx.arc(size/2, size/2, size/2 - 2, 0, Math.PI * 2);
                 ctx.fill();
-            } else if (mode === 'crazy') {
-                ctx.fillStyle = '#FF1493';
-                ctx.font = 'bold 32px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                const icons = ['⭐', '✨', '🌀', '🔮', '🦄'];
-                ctx.fillText(icons[Math.floor(Math.random() * icons.length)], size / 2, size / 2);
             } else if (mode === 'traditional-day') {
                 const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
                 grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
@@ -676,13 +582,11 @@
                 ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
                 ctx.fill();
             }
-
             return new THREE.CanvasTexture(canvas);
         }
 
         function buildBuddhistStupa(scale = 1.0) {
             const stupa = new THREE.Group();
-            
             const baseGeo1 = new THREE.CylinderGeometry(0.8 * scale, 0.9 * scale, 0.15 * scale, 12);
             const baseMat = new THREE.MeshStandardMaterial({ color: 0xfefbf3, roughness: 0.85, metalness: 0.05 });
             const base1 = new THREE.Mesh(baseGeo1, baseMat);
@@ -705,11 +609,10 @@
             stupa.add(box);
 
             const coneGeo = new THREE.ConeGeometry(0.18 * scale, 0.8 * scale, 12);
-            const spireMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.15 }); 
+            const spireMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.15 });
             const cone = new THREE.Mesh(coneGeo, spireMat);
             cone.position.y = 1.35 * scale;
             stupa.add(cone);
-
             return stupa;
         }
 
@@ -733,1763 +636,3 @@
             const roof = new THREE.Mesh(new THREE.ConeGeometry(1.0 * scale, 0.7 * scale, 4), roofMat);
             roof.position.y = 1.05 * scale;
             roof.rotation.y = Math.PI / 4;
-            temple.add(roof);
-
-            const finialMat = new THREE.MeshStandardMaterial({ color: 0xffd56e, emissive: 0xffd56e, emissiveIntensity: 0.2, roughness: 0.12, metalness: 0.85 });
-            const finial = new THREE.Mesh(new THREE.CylinderGeometry(0.05 * scale, 0.05 * scale, 0.24 * scale, 10), finialMat);
-            finial.position.y = 1.45 * scale;
-            temple.add(finial);
-
-            return temple;
-        }
-
-        function buildSceneryDecorations(mode) {
-            while (environmentGroup.children.length > 0) {
-                environmentGroup.remove(environmentGroup.children[0]);
-            }
-
-            if (fireflies) scene.remove(fireflies);
-
-            // Infinite Particle Systems
-            const flyGeo = new THREE.BufferGeometry();
-            const flyCount = mode === 'techno' ? 140 : (mode === 'water' ? 200 : (mode === 'traditional-day' ? 120 : 100));
-            const flyPositions = new Float32Array(flyCount * 3);
-            for (let i = 0; i < flyCount * 3; i += 3) {
-                flyPositions[i] = (Math.random() - 0.5) * 16;
-                flyPositions[i+1] = (Math.random() - 0.5) * 11;
-                flyPositions[i+2] = (Math.random() - 0.5) * 16;
-            }
-            flyGeo.setAttribute('position', new THREE.BufferAttribute(flyPositions, 3));
-            const particleTex = generateCanvasParticleTexture(mode);
-            const sizeVal = mode === 'techno' ? 0.35 : (mode === 'water' ? 0.28 : (mode === 'crazy' ? 0.45 : (mode === 'traditional-day' ? 0.22 : 0.16)));
-            const flyMat = new THREE.PointsMaterial({
-                size: sizeVal,
-                map: particleTex,
-                transparent: true,
-                opacity: 0.9,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            fireflies = new THREE.Points(flyGeo, flyMat);
-            scene.add(fireflies);
-
-            // Traditional mode (Daytime temple background element)
-            if (mode === 'traditional-day') {
-                const cloudGroup = new THREE.Group();
-                cloudGroup.position.set(0, 1.0, -9);
-                environmentGroup.add(cloudGroup);
-
-                const cloudMaterial = new THREE.MeshStandardMaterial({
-                    color: 0xfefaf9,
-                    roughness: 0.95,
-                    metalness: 0.08,
-                    transparent: true,
-                    opacity: 0.88,
-                });
-
-                for (let i = 0; i < 16; i++) {
-                    const puffGeo = new THREE.SphereGeometry(0.9 + Math.random() * 1.3, 10, 10);
-                    const puff = new THREE.Mesh(puffGeo, cloudMaterial);
-                    puff.position.set(
-                        (Math.random() - 0.5) * 12,
-                        (Math.random() - 0.5) * 2.1,
-                        (Math.random() - 0.5) * 4
-                    );
-                    puff.scale.setScalar(0.9 + Math.random() * 1.2);
-                    cloudGroup.add(puff);
-                }
-
-                const templePositions = [
-                    { x: -4.0, y: 0.75, z: -8.2, scale: 1.0 },
-                    { x: 4.4, y: 0.5, z: -9.3, scale: 0.9 },
-                    { x: 1.8, y: 1.1, z: -7.0, scale: 0.8 }
-                ];
-
-                templePositions.forEach(({ x, y, z, scale }) => {
-                    const temple = buildFloatingTemple(scale);
-                    temple.position.set(x, y, z);
-                    environmentGroup.add(temple);
-                });
-
-                const sunGeo = new THREE.SphereGeometry(1.2, 20, 20);
-                const sunMat = new THREE.MeshBasicMaterial({ color: 0xfff5d2, transparent: true, opacity: 0.35 });
-                const sun = new THREE.Mesh(sunGeo, sunMat);
-                sun.position.set(0, 2.2, -11);
-                environmentGroup.add(sun);
-
-                const sunGlowGeo = new THREE.SphereGeometry(2.6, 20, 20);
-                const sunGlowMat = new THREE.MeshBasicMaterial({ color: 0xffe8a0, transparent: true, opacity: 0.12 });
-                const sunGlow = new THREE.Mesh(sunGlowGeo, sunGlowMat);
-                sunGlow.position.copy(sun.position);
-                environmentGroup.add(sunGlow);
-
-                const sunLight = new THREE.PointLight(0xfff5d0, 0.4, 45, 2);
-                sunLight.position.copy(sun.position);
-                environmentGroup.add(sunLight);
-            }
-            // Crazy Mode Nebulas
-            else if (mode === 'crazy') {
-                const orbitGroup = new THREE.Group();
-                orbitGroup.name = "crazyNebulaOrbits";
-                for (let i = 0; i < 3; i++) {
-                    const torusGeo = new THREE.TorusGeometry(3.5 + i * 0.8, 0.02, 8, 48);
-                    const torusMat = new THREE.MeshBasicMaterial({ color: i === 0 ? 0xff1493 : (i === 1 ? 0x00ffff : 0xadff2f) });
-                    const ring = new THREE.Mesh(torusGeo, torusMat);
-                    ring.rotation.x = Math.random() * Math.PI;
-                    ring.rotation.y = Math.random() * Math.PI;
-                    orbitGroup.add(ring);
-                }
-                environmentGroup.add(orbitGroup);
-            }
-        }
-
-        function getPaperMaterial(colorHex, isFrame = false) {
-            const color = new THREE.Color(colorHex);
-            let modeInt = currentDimension === 'traditional' ? 0 : (currentDimension === 'techno' ? 1 : (currentDimension === 'water' ? 2 : 3));
-
-            if (isFrame) {
-                let frameCol = paperColors.goldFrame;
-                let emissiveIntensity = 0.5;
-                if (currentDimension === 'techno') { frameCol = technoColors.neonBlue; emissiveIntensity = 1.3; }
-                else if (currentDimension === 'water') { frameCol = waterColors.shimmerTeal; emissiveIntensity = 0.8; }
-                else if (currentDimension === 'crazy') { frameCol = crazyColors.radioactiveOrange; emissiveIntensity = 1.5; }
-
-                return new THREE.MeshStandardMaterial({
-                    color: frameCol,
-                    emissive: frameCol,
-                    emissiveIntensity: emissiveIntensity,
-                    roughness: 0.1,
-                    metalness: 0.9,
-                    wireframe: false
-                });
-            }
-
-            const mat = new THREE.ShaderMaterial({
-                vertexShader: CustomLanternShader.vertexShader,
-                fragmentShader: CustomLanternShader.fragmentShader,
-                uniforms: {
-                    uTime: { value: 0 },
-                    uMode: { value: modeInt },
-                    uColor: { value: color },
-                    uFlicker: { value: 0.0 }
-                },
-                transparent: true,
-                side: THREE.DoubleSide,
-                depthWrite: true
-            });
-
-            activeMaterials.push(mat);
-            return mat;
-        }
-
-        function getStructuralColors(index) {
-            if (currentDimension === 'techno') {
-                // Cold cyber: neon green, cyan, purple, electric pink, orange, white
-                const tPalette = [technoColors.neonGreen, technoColors.neonBlue, technoColors.neonPurple, technoColors.electricPink, technoColors.hologramCyan, technoColors.neonOrange];
-                return tPalette[index % tPalette.length];
-            } else if (currentDimension === 'water') {
-                // Bioluminescent ocean: deep blues, teals, seafoam, coral, biolum glow
-                const wPalette = [waterColors.aqua, waterColors.shimmerTeal, waterColors.emerald, waterColors.seafoam, waterColors.coral, waterColors.deepBlue];
-                return wPalette[index % wPalette.length];
-            } else if (currentDimension === 'crazy') {
-                // Vivid psychedelic: hot pink, electric yellow, purple, orange, alien green, cosmic blue
-                const cPalette = [crazyColors.psychedelicPink, crazyColors.electricYellow, crazyColors.purpleGlow, crazyColors.radioactiveOrange, crazyColors.alienGreen, crazyColors.cosmicBlue];
-                return cPalette[index % cPalette.length];
-            } else {
-                // Traditional: authentic Sri Lankan temple colors — saffron, crimson, gold, turmeric, lotus, ivory
-                const tradPalette = [0xFF8C00, 0xCC2200, 0xFFD700, 0xFFB300, 0xFF5599, 0xFFF5DC];
-                return tradPalette[index % tradPalette.length];
-            }
-        }
-
-        function buildFrameOutline(geometry, parentGroup) {
-            const edges = new THREE.EdgesGeometry(geometry);
-            let frameCol = paperColors.goldFrame;
-            if (currentDimension === 'techno') frameCol = technoColors.neonGreen;
-            else if (currentDimension === 'water') frameCol = waterColors.aqua;
-            else if (currentDimension === 'crazy') frameCol = crazyColors.electricYellow;
-
-            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ 
-                color: frameCol,
-                linewidth: 2.0
-            }));
-            parentGroup.add(line);
-        }
-
-        function createRaliChain(segmentsCount, length, width, color) {
-            const chainGroup = new THREE.Group();
-            let parentNode = chainGroup;
-            const segmentRefs = [];
-            
-            let segLength = length / segmentsCount;
-            let displayWidth = currentDimension === 'water' ? width * 1.5 : width;
-
-            for (let i = 0; i < segmentsCount; i++) {
-                const node = new THREE.Group();
-                if (i > 0) {
-                    node.position.y = -segLength;
-                }
-
-                const ribbonGeo = new THREE.PlaneGeometry(displayWidth, segLength, 1, 2);
-                ribbonGeo.translate(0, -segLength / 2, 0);
-
-                let ribbonMat;
-                if (currentDimension === 'traditional' || currentDimension === 'crazy') {
-                    ribbonMat = new THREE.MeshStandardMaterial({
-                        color: color,
-                        side: THREE.DoubleSide,
-                        roughness: 0.7,
-                        transparent: true,
-                        opacity: 0.85,
-                        emissive: color,
-                        emissiveIntensity: 0.25
-                    });
-                } else {
-                    ribbonMat = getPaperMaterial(color);
-                }
-
-                const mesh = new THREE.Mesh(ribbonGeo, ribbonMat);
-                node.add(mesh);
-
-                parentNode.add(node);
-                segmentRefs.push(node);
-                parentNode = node; 
-            }
-
-            return {
-                group: chainGroup,
-                segments: segmentRefs,
-                update: function(time, speed, force) {
-                    segmentRefs.forEach((seg, idx) => {
-                        const phaseOffset = idx * 0.45;
-                        let swingMultiplier = currentDimension === 'crazy' ? 1.6 : (currentDimension === 'water' ? 0.7 : 1.0);
-                        const dynamicX = Math.sin(time * speed * 3.2 - phaseOffset) * force * (0.08 + idx * 0.04) * swingMultiplier;
-                        const dynamicZ = Math.cos(time * speed * 2.4 - phaseOffset) * force * (0.05 + idx * 0.03) * swingMultiplier;
-                        seg.rotation.x = dynamicX;
-                        seg.rotation.z = dynamicZ;
-                    });
-                }
-            };
-        }
-
-        function attachTasselToPoint(parentObj, localPosition, raliLength, raliColor, raliCount = 1) {
-            const anchor = new THREE.Group();
-            anchor.position.copy(localPosition);
-            parentObj.add(anchor);
-
-            for (let i = 0; i < raliCount; i++) {
-                const spreadX = (Math.random() - 0.5) * 0.08;
-                const spreadZ = (Math.random() - 0.5) * 0.08;
-                let actualLength = raliLength;
-                if (currentDimension === 'water') actualLength *= 1.35;
-                if (currentDimension === 'crazy') actualLength *= 1.15;
-
-                const dynamicChain = createRaliChain(6, actualLength * (0.85 + Math.random() * 0.3), 0.08 + Math.random() * 0.04, raliColor);
-                dynamicChain.group.position.set(spreadX, 0, spreadZ);
-                anchor.add(dynamicChain.group);
-                activeTassels.push(dynamicChain);
-            }
-        }
-
-        function buildAtapattam(scale = 1.0, attachTassels = true) {
-            const group = new THREE.Group();
-            const s = scale;
-            
-            const cubeGeo = new THREE.BoxGeometry(s, s, s);
-            const cubeMaterials = [
-                getPaperMaterial(getStructuralColors(0)),
-                getPaperMaterial(getStructuralColors(1)),
-                getPaperMaterial(getStructuralColors(2)),
-                getPaperMaterial(getStructuralColors(3)),
-                getPaperMaterial(getStructuralColors(4)),
-                getPaperMaterial(getStructuralColors(5))
-            ];
-            const cubeMesh = new THREE.Mesh(cubeGeo, cubeMaterials);
-            group.add(cubeMesh);
-            buildFrameOutline(cubeGeo, group);
-
-            const pyHeight = s * 0.55;
-            const pyRadius = s * Math.sqrt(2) / 2;
-            const pyGeo = new THREE.ConeGeometry(pyRadius, pyHeight, 4, 1);
-            pyGeo.rotateY(Math.PI / 4);
-
-            const caps = [
-                { pos: [0, s * 0.775, 0], rot: [0, 0, 0], col: getStructuralColors(5) }, 
-                { pos: [0, -s * 0.775, 0], rot: [Math.PI, 0, 0], col: getStructuralColors(5) }, 
-                { pos: [s * 0.775, 0, 0], rot: [0, 0, -Math.PI / 2], col: getStructuralColors(1) }, 
-                { pos: [-s * 0.775, 0, 0], rot: [0, 0, Math.PI / 2], col: getStructuralColors(4) }, 
-                { pos: [0, 0, s * 0.775], rot: [Math.PI / 2, 0, 0], col: getStructuralColors(2) }, 
-                { pos: [0, 0, -s * 0.775], rot: [-Math.PI / 2, 0, 0], col: getStructuralColors(0) } 
-            ];
-
-            caps.forEach(cap => {
-                const capMesh = new THREE.Mesh(pyGeo, getPaperMaterial(cap.col));
-                capMesh.position.set(...cap.pos);
-                capMesh.rotation.set(...cap.rot);
-                group.add(capMesh);
-                buildFrameOutline(pyGeo, capMesh);
-            });
-
-            if (attachTassels) {
-                const tasselColor = getStructuralColors(1);
-                attachTasselToPoint(group, new THREE.Vector3(0, -s * 0.775 - pyHeight, 0), s * 1.8, tasselColor, 5);
-                attachTasselToPoint(group, new THREE.Vector3(s * 0.775 + pyHeight, 0, 0), s * 1.2, getStructuralColors(4), 3);
-                attachTasselToPoint(group, new THREE.Vector3(-s * 0.775 - pyHeight, 0, 0), s * 1.2, getStructuralColors(4), 3);
-                attachTasselToPoint(group, new THREE.Vector3(0, 0, s * 0.775 + pyHeight), s * 1.2, getStructuralColors(2), 3);
-                attachTasselToPoint(group, new THREE.Vector3(0, 0, -s * 0.775 - pyHeight), s * 1.2, getStructuralColors(0), 3);
-            }
-
-            return group;
-        }
-
-        function buildBarrelLantern() {
-            const group = new THREE.Group();
-            const rad = 0.8;
-            const h = 1.6;
-
-            const segments = currentDimension === 'water' ? 16 : 8;
-            const cylGeo = new THREE.CylinderGeometry(rad, rad, h, segments, 3, true);
-            const cylMesh = new THREE.Mesh(cylGeo, getPaperMaterial(getStructuralColors(1)));
-            group.add(cylMesh);
-            buildFrameOutline(cylGeo, group);
-
-            const ringGeo = new THREE.CylinderGeometry(rad * 1.05, rad * 1.05, 0.08, 16);
-            const ringMat = getPaperMaterial(getStructuralColors(0), true);
-            
-            const topRing = new THREE.Mesh(ringGeo, ringMat);
-            topRing.position.y = h/2;
-            group.add(topRing);
-
-            const botRing = new THREE.Mesh(ringGeo, ringMat);
-            botRing.position.y = -h/2;
-            group.add(botRing);
-
-            const tasselsCount = 12; 
-            for (let i = 0; i < tasselsCount; i++) {
-                const angle = (i / tasselsCount) * Math.PI * 2;
-                const tx = Math.cos(angle) * rad;
-                const tz = Math.sin(angle) * rad;
-                const tCol = i % 2 === 0 ? getStructuralColors(2) : getStructuralColors(5);
-                attachTasselToPoint(group, new THREE.Vector3(tx, -h/2, tz), 1.5, tCol, 2);
-            }
-
-            return group;
-        }
-
-        function buildNelumKuduwa() {
-            const group = new THREE.Group();
-            
-            const coreGeo = new THREE.CylinderGeometry(0.5, 0.5, 1.2, 8);
-            const coreMesh = new THREE.Mesh(coreGeo, getPaperMaterial(getStructuralColors(2)));
-            group.add(coreMesh);
-            buildFrameOutline(coreGeo, group);
-
-            for (let i = 0; i < 8; i++) {
-                const angle = (i / 8) * Math.PI * 2;
-                const petalGeo = new THREE.ConeGeometry(0.25, 0.9, 3);
-                petalGeo.scale(1.0, 1.0, 0.4);
-                const petalMesh = new THREE.Mesh(petalGeo, getPaperMaterial(getStructuralColors(i % 5)));
-                
-                petalMesh.position.set(Math.cos(angle) * 0.7, 0, Math.sin(angle) * 0.7);
-                petalMesh.rotation.z = -0.3;
-                petalMesh.rotation.y = -angle;
-                group.add(petalMesh);
-                buildFrameOutline(petalGeo, petalMesh);
-
-                attachTasselToPoint(petalMesh, new THREE.Vector3(0, -0.45, 0), 1.3, getStructuralColors(i), 2);
-            }
-
-            attachTasselToPoint(group, new THREE.Vector3(0, -0.6, 0), 1.8, getStructuralColors(1), 5);
-            return group;
-        }
-
-        function buildStarLantern() {
-            const group = new THREE.Group();
-            const centerGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.6, 6);
-            centerGeo.rotateX(Math.PI/2);
-            const centerMesh = new THREE.Mesh(centerGeo, getPaperMaterial(getStructuralColors(5)));
-            group.add(centerMesh);
-            buildFrameOutline(centerGeo, group);
-
-            const numPoints = 6;
-            const starPointsGroup = new THREE.Group();
-            group.add(starPointsGroup);
-
-            for (let i = 0; i < numPoints; i++) {
-                const angle = (i / numPoints) * Math.PI * 2;
-                const coneGeo = new THREE.ConeGeometry(0.3, 0.9, 4, 1);
-                const color = i % 2 === 0 ? getStructuralColors(3) : getStructuralColors(1);
-                const coneMesh = new THREE.Mesh(coneGeo, getPaperMaterial(color));
-                
-                coneMesh.position.set(Math.cos(angle) * 0.7, Math.sin(angle) * 0.7, 0);
-                coneMesh.rotation.z = angle - Math.PI/2;
-                starPointsGroup.add(coneMesh);
-                buildFrameOutline(coneGeo, coneMesh);
-
-                if (i !== 1 && i !== 2) { 
-                    const globalTipOffset = new THREE.Vector3(Math.cos(angle) * 1.15, Math.sin(angle) * 1.15, 0);
-                    attachTasselToPoint(group, globalTipOffset, 1.4, color, 3);
-                }
-            }
-
-            attachTasselToPoint(group, new THREE.Vector3(0, -0.4, 0), 1.7, getStructuralColors(2), 4);
-            return group;
-        }
-
-        function buildDiamondLantern() {
-            const group = new THREE.Group();
-            const octGeo = new THREE.OctahedronGeometry(1.0, 0);
-            const scaleFactorY = 1.7;
-            octGeo.scale(1.0, scaleFactorY, 1.0);
-
-            const subMatArray = [];
-            for (let i = 0; i < 8; i++) {
-                subMatArray.push(getPaperMaterial(getStructuralColors(i)));
-            }
-
-            const mesh = new THREE.Mesh(octGeo, subMatArray);
-            group.add(mesh);
-            buildFrameOutline(octGeo, group);
-
-            attachTasselToPoint(group, new THREE.Vector3(0, -1.0 * scaleFactorY, 0), 1.9, getStructuralColors(4), 5);
-            attachTasselToPoint(group, new THREE.Vector3(1.0, 0, 0), 1.2, getStructuralColors(5), 3);
-            attachTasselToPoint(group, new THREE.Vector3(-1.0, 0, 0), 1.2, getStructuralColors(5), 3);
-            return group;
-        }
-
-        function buildHexNestLantern() {
-            const group = new THREE.Group();
-            
-            const outerGeo = new THREE.CylinderGeometry(0.9, 0.9, 1.4, 6, 1, true);
-            const outerMesh = new THREE.Mesh(outerGeo, getPaperMaterial(getStructuralColors(3)));
-            group.add(outerMesh);
-            buildFrameOutline(outerGeo, group);
-
-            const innerGeo = new THREE.CylinderGeometry(0.4, 0.4, 1.6, 6);
-            const innerMesh = new THREE.Mesh(innerGeo, getPaperMaterial(getStructuralColors(0)));
-            group.add(innerMesh);
-            buildFrameOutline(innerGeo, innerMesh);
-
-            for (let i = 0; i < 6; i++) {
-                const angle = (i / 6) * Math.PI * 2;
-                attachTasselToPoint(group, new THREE.Vector3(Math.cos(angle) * 0.9, -0.7, Math.sin(angle) * 0.9), 1.4, getStructuralColors(i), 2);
-            }
-
-            attachTasselToPoint(group, new THREE.Vector3(0, -0.8, 0), 1.8, getStructuralColors(4), 4);
-            return group;
-        }
-
-        function buildDoubleDecker() {
-            const containerGroup = new THREE.Group();
-
-            const topAtap = buildAtapattam(0.65, false);
-            topAtap.position.y = 1.1;
-            containerGroup.add(topAtap);
-
-            const botAtap = buildAtapattam(1.0, true);
-            botAtap.position.y = -0.6;
-            containerGroup.add(botAtap);
-
-            const cordGeo = new THREE.CylinderGeometry(0.015, 0.015, 0.9);
-            const cordMat = getPaperMaterial(getStructuralColors(0), true);
-
-            const cordLeft = new THREE.Mesh(cordGeo, cordMat);
-            cordLeft.position.set(-0.35, 0.25, 0);
-            containerGroup.add(cordLeft);
-
-            const cordRight = new THREE.Mesh(cordGeo, cordMat);
-            cordRight.position.set(0.35, 0.25, 0);
-            containerGroup.add(cordRight);
-
-            attachTasselToPoint(topAtap, new THREE.Vector3(0.9, 0, 0), 0.95, getStructuralColors(2), 3);
-            attachTasselToPoint(topAtap, new THREE.Vector3(-0.9, 0, 0), 0.95, getStructuralColors(2), 3);
-
-            return containerGroup;
-        }
-
-        function buildMahaKuduwa() {
-            const centralGroup = new THREE.Group();
-
-            const centralMega = buildAtapattam(1.05, true);
-            centralGroup.add(centralMega);
-
-            const sideOffsets = [
-                { dir: new THREE.Vector3(1.35, 0, 0), r: [0, 0, -Math.PI / 2], c: getStructuralColors(0) },
-                { dir: new THREE.Vector3(-1.35, 0, 0), r: [0, 0, Math.PI / 2], c: getStructuralColors(4) },
-                { dir: new THREE.Vector3(0, 0, 1.35), r: [Math.PI / 2, 0, 0], c: getStructuralColors(2) },
-                { dir: new THREE.Vector3(0, 0, -1.35), r: [-Math.PI / 2, 0, 0], c: getStructuralColors(1) }
-            ];
-
-            const cordGeo = new THREE.CylinderGeometry(0.01, 0.01, 0.75);
-            const cordMat = getPaperMaterial(getStructuralColors(0), true);
-
-            sideOffsets.forEach(side => {
-                const hanger = new THREE.Mesh(cordGeo, cordMat);
-                hanger.position.copy(side.dir);
-                hanger.position.y -= 0.35;
-                centralGroup.add(hanger);
-
-                const miniAtap = buildAtapattam(0.35, false);
-                miniAtap.position.copy(hanger.position);
-                miniAtap.position.y -= 0.35;
-                centralGroup.add(miniAtap);
-
-                attachTasselToPoint(miniAtap, new THREE.Vector3(0, -0.6, 0), 0.8, side.c, 4);
-                attachTasselToPoint(miniAtap, new THREE.Vector3(0.4, 0, 0), 0.6, getStructuralColors(5), 2);
-                attachTasselToPoint(miniAtap, new THREE.Vector3(-0.4, 0, 0), 0.6, getStructuralColors(5), 2);
-            });
-
-            return centralGroup;
-        }
-
-        function buildTripleCascade() {
-            const containerGroup = new THREE.Group();
-
-            const bottomTier = buildAtapattam(1.0, false);
-            bottomTier.position.y = -1.1;
-            containerGroup.add(bottomTier);
-
-            const middleTier = buildAtapattam(0.7, false);
-            middleTier.position.y = 0.2;
-            containerGroup.add(middleTier);
-
-            const topTier = buildAtapattam(0.4, false);
-            topTier.position.y = 1.1;
-            containerGroup.add(topTier);
-
-            const cordGeo = new THREE.CylinderGeometry(0.01, 0.01, 2.2);
-            const cordMat = getPaperMaterial(getStructuralColors(0), true);
-            
-            const leftCord = new THREE.Mesh(cordGeo, cordMat);
-            leftCord.position.set(-0.25, 0, 0);
-            containerGroup.add(leftCord);
-
-            const rightCord = new THREE.Mesh(cordGeo, cordMat);
-            rightCord.position.set(0.25, 0, 0);
-            containerGroup.add(rightCord);
-
-            attachTasselToPoint(bottomTier, new THREE.Vector3(0, -1.2, 0), 2.0, getStructuralColors(3), 5);
-            attachTasselToPoint(middleTier, new THREE.Vector3(0.6, -0.4, 0), 1.2, getStructuralColors(2), 3);
-            attachTasselToPoint(middleTier, new THREE.Vector3(-0.6, -0.4, 0), 1.2, getStructuralColors(2), 3);
-
-            return containerGroup;
-        }
-
-        let elephantEarLeft, elephantEarRight, elephantTrunk;
-        function buildElephantLantern() {
-            const animal = new THREE.Group();
-
-            // Large barrel body
-            const bodyGeo = new THREE.SphereGeometry(0.72, 10, 8);
-            bodyGeo.scale(1.45, 1.0, 1.0);
-            const bodyMesh = new THREE.Mesh(bodyGeo, getPaperMaterial(getStructuralColors(0)));
-            animal.add(bodyMesh);
-            buildFrameOutline(bodyGeo, bodyMesh);
-
-            // Big round head
-            const headGeo = new THREE.SphereGeometry(0.52, 10, 8);
-            const headMesh = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(1)));
-            headMesh.position.set(1.05, 0.3, 0);
-            animal.add(headMesh);
-            buildFrameOutline(headGeo, headMesh);
-
-            // Huge flat ears — wide disk shapes
-            const earGeo = new THREE.SphereGeometry(0.52, 6, 5);
-            earGeo.scale(0.15, 0.7, 0.65);
-            elephantEarLeft = new THREE.Mesh(earGeo, getPaperMaterial(getStructuralColors(4)));
-            elephantEarLeft.position.set(0.98, 0.25, 0.75);
-            animal.add(elephantEarLeft);
-            buildFrameOutline(earGeo, elephantEarLeft);
-
-            const earGeoR = new THREE.SphereGeometry(0.52, 6, 5);
-            earGeoR.scale(0.15, 0.7, 0.65);
-            elephantEarRight = new THREE.Mesh(earGeoR, getPaperMaterial(getStructuralColors(4)));
-            elephantEarRight.position.set(0.98, 0.25, -0.75);
-            animal.add(elephantEarRight);
-
-            // Long S-curve trunk via tapered cylinders
-            const trunkSegs = [
-                { py: -0.02, pz: 0, ry: 0, rz: 0.55, sy: 0.42, r1: 0.16, r2: 0.14 },
-                { py: -0.38, pz: 0, ry: 0, rz: 1.1, sy: 0.38, r1: 0.13, r2: 0.11 },
-                { py: -0.65, pz: 0, ry: 0, rz: 1.7, sy: 0.34, r1: 0.10, r2: 0.08 },
-                { py: -0.82, pz: 0, ry: 0, rz: 2.2, sy: 0.28, r1: 0.08, r2: 0.06 },
-            ];
-            let trunkPx = 1.52;
-            trunkSegs.forEach((ts, i) => {
-                const tGeo = new THREE.CylinderGeometry(ts.r1, ts.r2, ts.sy, 7);
-                const tMesh = new THREE.Mesh(tGeo, getPaperMaterial(getStructuralColors(3)));
-                tMesh.position.set(trunkPx, ts.py, 0);
-                tMesh.rotation.z = ts.rz;
-                animal.add(tMesh);
-                if (i === 0) elephantTrunk = tMesh;
-                buildFrameOutline(tGeo, tMesh);
-                trunkPx += Math.cos(ts.rz) * ts.sy * 0.5;
-            });
-
-            // Four thick stubby legs
-            const legGeo = new THREE.CylinderGeometry(0.2, 0.22, 0.6, 7);
-            [[0.5, -0.82, 0.4], [-0.5, -0.82, 0.4], [0.5, -0.82, -0.4], [-0.5, -0.82, -0.4]].forEach(pos => {
-                const leg = new THREE.Mesh(legGeo, getPaperMaterial(getStructuralColors(2)));
-                leg.position.set(...pos);
-                animal.add(leg);
-                buildFrameOutline(legGeo, leg);
-                attachTasselToPoint(leg, new THREE.Vector3(0, -0.3, 0), 0.6, getStructuralColors(5), 2);
-            });
-
-            // Small tail
-            const tailGeo = new THREE.CylinderGeometry(0.06, 0.04, 0.42, 5);
-            const tail = new THREE.Mesh(tailGeo, getPaperMaterial(getStructuralColors(5)));
-            tail.position.set(-1.05, 0.1, 0);
-            tail.rotation.z = 0.6;
-            animal.add(tail);
-            attachTasselToPoint(tail, new THREE.Vector3(0, -0.21, 0), 0.45, getStructuralColors(1), 2);
-
-            attachTasselToPoint(animal, new THREE.Vector3(0, -0.82, 0), 1.7, getStructuralColors(3), 6);
-            return animal;
-        }
-
-        let lionSnout;
-        function buildLionLantern() {
-            const lion = new THREE.Group();
-
-            // Muscular torso
-            const torsoGeo = new THREE.SphereGeometry(0.65, 9, 7);
-            torsoGeo.scale(1.5, 0.95, 1.0);
-            const torso = new THREE.Mesh(torsoGeo, getPaperMaterial(getStructuralColors(1)));
-            lion.add(torso);
-            buildFrameOutline(torsoGeo, torso);
-
-            // Big bushy mane — large flat sphere around head
-            const maneGeo = new THREE.SphereGeometry(0.62, 10, 8);
-            maneGeo.scale(0.95, 1.0, 1.0);
-            const mane = new THREE.Mesh(maneGeo, getPaperMaterial(getStructuralColors(3)));
-            mane.position.set(0.95, 0.35, 0);
-            lion.add(mane);
-            buildFrameOutline(maneGeo, mane);
-
-            // Face inside the mane
-            const faceGeo = new THREE.SphereGeometry(0.38, 8, 7);
-            const face = new THREE.Mesh(faceGeo, getPaperMaterial(getStructuralColors(1)));
-            face.position.set(1.18, 0.38, 0);
-            lion.add(face);
-            buildFrameOutline(faceGeo, face);
-
-            // Snout/nose
-            const snoutGeo = new THREE.SphereGeometry(0.2, 6, 5);
-            snoutGeo.scale(1.3, 0.7, 0.8);
-            lionSnout = new THREE.Mesh(snoutGeo, getPaperMaterial(getStructuralColors(2)));
-            lionSnout.position.set(1.52, 0.3, 0);
-            lion.add(lionSnout);
-
-            // Ears — two small cones on top of head
-            const earGeo = new THREE.ConeGeometry(0.14, 0.25, 5);
-            const earL = new THREE.Mesh(earGeo, getPaperMaterial(getStructuralColors(3)));
-            earL.position.set(1.0, 0.9, 0.28);
-            earL.rotation.z = -0.2;
-            lion.add(earL);
-            const earR = new THREE.Mesh(earGeo, getPaperMaterial(getStructuralColors(3)));
-            earR.position.set(1.0, 0.9, -0.28);
-            earR.rotation.z = -0.2;
-            lion.add(earR);
-
-            // Four legs
-            const legGeo = new THREE.CylinderGeometry(0.16, 0.14, 0.6, 6);
-            [[0.5, -0.72, 0.38], [-0.5, -0.72, 0.38], [0.5, -0.72, -0.38], [-0.5, -0.72, -0.38]].forEach(pos => {
-                const leg = new THREE.Mesh(legGeo, getPaperMaterial(getStructuralColors(1)));
-                leg.position.set(...pos);
-                lion.add(leg);
-                buildFrameOutline(legGeo, leg);
-            });
-
-            // Long tail with tuft
-            const tailGeo = new THREE.CylinderGeometry(0.07, 0.05, 0.6, 5);
-            const tail = new THREE.Mesh(tailGeo, getPaperMaterial(getStructuralColors(1)));
-            tail.position.set(-1.1, 0.1, 0);
-            tail.rotation.z = 0.7;
-            lion.add(tail);
-            const tuftGeo = new THREE.SphereGeometry(0.2, 5, 5);
-            const tuft = new THREE.Mesh(tuftGeo, getPaperMaterial(getStructuralColors(3)));
-            tuft.position.set(-1.42, 0.42, 0);
-            lion.add(tuft);
-
-            attachTasselToPoint(mane, new THREE.Vector3(0, -0.55, 0), 1.4, getStructuralColors(5), 4);
-            attachTasselToPoint(lion, new THREE.Vector3(-0.5, -0.5, 0), 1.6, getStructuralColors(0), 5);
-            return lion;
-        }
-
-        let bullHead;
-        function buildBullLantern() {
-            const bull = new THREE.Group();
-
-            // Muscular bull body
-            const torsoGeo = new THREE.SphereGeometry(0.68, 9, 7);
-            torsoGeo.scale(1.55, 1.0, 1.05);
-            const torso = new THREE.Mesh(torsoGeo, getPaperMaterial(getStructuralColors(2)));
-            bull.add(torso);
-            buildFrameOutline(torsoGeo, torso);
-
-            // Distinctive hump on back
-            const humpGeo = new THREE.SphereGeometry(0.38, 7, 6);
-            humpGeo.scale(0.9, 1.1, 0.85);
-            const hump = new THREE.Mesh(humpGeo, getPaperMaterial(getStructuralColors(3)));
-            hump.position.set(-0.18, 0.72, 0);
-            bull.add(hump);
-            buildFrameOutline(humpGeo, hump);
-
-            // Head group
-            bullHead = new THREE.Group();
-            bullHead.position.set(1.05, 0.28, 0);
-            bull.add(bullHead);
-
-            const headGeo = new THREE.SphereGeometry(0.44, 8, 7);
-            headGeo.scale(1.2, 0.9, 0.9);
-            const head = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(0)));
-            bullHead.add(head);
-            buildFrameOutline(headGeo, head);
-
-            // Wide muzzle
-            const muzzleGeo = new THREE.SphereGeometry(0.26, 6, 5);
-            muzzleGeo.scale(1.3, 0.65, 0.9);
-            const muzzle = new THREE.Mesh(muzzleGeo, getPaperMaterial(getStructuralColors(2)));
-            muzzle.position.set(0.48, -0.08, 0);
-            bullHead.add(muzzle);
-
-            // Sweeping horns
-            const hornGeo = new THREE.CylinderGeometry(0.06, 0.02, 0.55, 5);
-            const hornL = new THREE.Mesh(hornGeo, getPaperMaterial(getStructuralColors(4)));
-            hornL.position.set(0.05, 0.38, 0.3);
-            hornL.rotation.set(0.3, 0, -0.5);
-            bullHead.add(hornL);
-            buildFrameOutline(hornGeo, hornL);
-
-            const hornR = new THREE.Mesh(hornGeo, getPaperMaterial(getStructuralColors(4)));
-            hornR.position.set(0.05, 0.38, -0.3);
-            hornR.rotation.set(-0.3, 0, -0.5);
-            bullHead.add(hornR);
-            buildFrameOutline(hornGeo, hornR);
-
-            // Ears
-            const earGeo = new THREE.SphereGeometry(0.15, 5, 4);
-            earGeo.scale(0.5, 1.0, 1.5);
-            const earL = new THREE.Mesh(earGeo, getPaperMaterial(getStructuralColors(0)));
-            earL.position.set(-0.08, 0.18, 0.48);
-            bullHead.add(earL);
-            const earR = new THREE.Mesh(earGeo, getPaperMaterial(getStructuralColors(0)));
-            earR.position.set(-0.08, 0.18, -0.48);
-            bullHead.add(earR);
-
-            // Four legs
-            const legGeo = new THREE.CylinderGeometry(0.18, 0.16, 0.62, 7);
-            [[0.48, -0.8, 0.4], [-0.48, -0.8, 0.4], [0.48, -0.8, -0.4], [-0.48, -0.8, -0.4]].forEach(pos => {
-                const leg = new THREE.Mesh(legGeo, getPaperMaterial(getStructuralColors(2)));
-                leg.position.set(...pos);
-                bull.add(leg);
-                buildFrameOutline(legGeo, leg);
-            });
-
-            // Tail
-            const tailGeo = new THREE.CylinderGeometry(0.06, 0.04, 0.55, 5);
-            const bullTail = new THREE.Mesh(tailGeo, getPaperMaterial(getStructuralColors(3)));
-            bullTail.position.set(-1.1, 0.2, 0);
-            bullTail.rotation.z = 0.7;
-            bull.add(bullTail);
-            const tailTuftGeo = new THREE.SphereGeometry(0.15, 5, 4);
-            const tailTuft = new THREE.Mesh(tailTuftGeo, getPaperMaterial(getStructuralColors(5)));
-            tailTuft.position.set(-1.4, 0.54, 0);
-            bull.add(tailTuft);
-
-            attachTasselToPoint(bull, new THREE.Vector3(-0.6, -0.45, 0), 1.5, getStructuralColors(1), 4);
-            return bull;
-        }
-
-        let swanWingsL, swanWingsR;
-        function buildSwanLantern() {
-            const swan = new THREE.Group();
-
-            // Buoyant rounded body
-            const bodyGeo = new THREE.SphereGeometry(0.72, 9, 8);
-            bodyGeo.scale(1.55, 0.85, 1.0);
-            const body = new THREE.Mesh(bodyGeo, getPaperMaterial(getStructuralColors(5)));
-            swan.add(body);
-            buildFrameOutline(bodyGeo, body);
-
-            // Tail feathers — raised flat fan
-            const tailGeo = new THREE.SphereGeometry(0.45, 6, 5);
-            tailGeo.scale(0.3, 0.9, 1.1);
-            const tailMesh = new THREE.Mesh(tailGeo, getPaperMaterial(getStructuralColors(4)));
-            tailMesh.position.set(-1.0, 0.35, 0);
-            tailMesh.rotation.z = -0.55;
-            swan.add(tailMesh);
-            buildFrameOutline(tailGeo, tailMesh);
-
-            // Long graceful S-curve neck
-            const neckSegs = [
-                { x: 0.75, y: 0.35, rz: -0.3, r: 0.16, h: 0.5 },
-                { x: 0.98, y: 0.73, rz: -0.1, r: 0.13, h: 0.45 },
-                { x: 1.1,  y: 1.08, rz: 0.25, r: 0.11, h: 0.42 },
-                { x: 1.0,  y: 1.38, rz: 0.6,  r: 0.09, h: 0.36 },
-            ];
-            neckSegs.forEach(ns => {
-                const nsGeo = new THREE.CylinderGeometry(ns.r, ns.r * 1.1, ns.h, 7);
-                const nsMesh = new THREE.Mesh(nsGeo, getPaperMaterial(getStructuralColors(5)));
-                nsMesh.position.set(ns.x, ns.y, 0);
-                nsMesh.rotation.z = ns.rz;
-                swan.add(nsMesh);
-                buildFrameOutline(nsGeo, nsMesh);
-            });
-
-            // Elegant oval head
-            const headGeo = new THREE.SphereGeometry(0.22, 7, 6);
-            headGeo.scale(1.3, 1.0, 1.0);
-            const head = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(4)));
-            head.position.set(0.86, 1.58, 0);
-            swan.add(head);
-            buildFrameOutline(headGeo, head);
-
-            // Orange beak
-            const beakGeo = new THREE.ConeGeometry(0.09, 0.38, 5);
-            const beak = new THREE.Mesh(beakGeo, getPaperMaterial(getStructuralColors(3)));
-            beak.position.set(1.2, 1.56, 0);
-            beak.rotation.z = -Math.PI / 2;
-            swan.add(beak);
-
-            // Raised wings — elegant arching planes
-            const wingGeo = new THREE.SphereGeometry(0.7, 7, 5);
-            wingGeo.scale(1.1, 0.28, 0.65);
-            swanWingsL = new THREE.Mesh(wingGeo, getPaperMaterial(getStructuralColors(1)));
-            swanWingsL.position.set(0.05, 0.52, 0.72);
-            swanWingsL.rotation.z = -0.22;
-            swanWingsL.rotation.x = 0.15;
-            swan.add(swanWingsL);
-            buildFrameOutline(wingGeo, swanWingsL);
-
-            const wingGeoR = new THREE.SphereGeometry(0.7, 7, 5);
-            wingGeoR.scale(1.1, 0.28, 0.65);
-            swanWingsR = new THREE.Mesh(wingGeoR, getPaperMaterial(getStructuralColors(1)));
-            swanWingsR.position.set(0.05, 0.52, -0.72);
-            swanWingsR.rotation.z = -0.22;
-            swanWingsR.rotation.x = -0.15;
-            swan.add(swanWingsR);
-            buildFrameOutline(wingGeoR, swanWingsR);
-
-            attachTasselToPoint(swan, new THREE.Vector3(-0.9, -0.28, 0), 1.7, getStructuralColors(2), 4);
-            return swan;
-        }
-
-        let peacockTail;
-        function buildPeacockLantern() {
-            const peacock = new THREE.Group();
-
-            // Body
-            const bodyGeo = new THREE.SphereGeometry(0.5, 9, 7);
-            bodyGeo.scale(1.2, 1.0, 0.85);
-            const body = new THREE.Mesh(bodyGeo, getPaperMaterial(getStructuralColors(0)));
-            peacock.add(body);
-            buildFrameOutline(bodyGeo, body);
-
-            // Neck
-            const neckGeo = new THREE.CylinderGeometry(0.14, 0.18, 0.55, 7);
-            const neck = new THREE.Mesh(neckGeo, getPaperMaterial(getStructuralColors(2)));
-            neck.position.set(0.6, 0.48, 0);
-            neck.rotation.z = -0.45;
-            peacock.add(neck);
-            buildFrameOutline(neckGeo, neck);
-
-            // Head with crest
-            const headGeo = new THREE.SphereGeometry(0.26, 8, 7);
-            const head = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(2)));
-            head.position.set(0.9, 0.82, 0);
-            peacock.add(head);
-            buildFrameOutline(headGeo, head);
-
-            // Crest feathers on top of head
-            for (let i = 0; i < 5; i++) {
-                const crestGeo = new THREE.CylinderGeometry(0.03, 0.01, 0.28, 4);
-                const crest = new THREE.Mesh(crestGeo, getPaperMaterial(getStructuralColors(1)));
-                const angle = (i / 5 - 0.5) * 0.8;
-                crest.position.set(0.9 + Math.sin(angle) * 0.1, 1.12 + Math.cos(angle) * 0.05, (i - 2) * 0.09);
-                crest.rotation.z = angle * 0.5;
-                peacock.add(crest);
-                // Dot on top of crest
-                const dotGeo = new THREE.SphereGeometry(0.06, 5, 4);
-                const dot = new THREE.Mesh(dotGeo, getPaperMaterial(getStructuralColors(4)));
-                dot.position.set(0, 0.14, 0);
-                crest.add(dot);
-            }
-
-            // Beak
-            const beakGeo = new THREE.ConeGeometry(0.08, 0.3, 4);
-            const beak = new THREE.Mesh(beakGeo, getPaperMaterial(getStructuralColors(3)));
-            beak.position.set(1.18, 0.8, 0);
-            beak.rotation.z = -Math.PI / 2;
-            peacock.add(beak);
-
-            // Magnificent fan tail — large semicircular display
-            peacockTail = new THREE.Group();
-            peacockTail.position.set(-0.55, 0.3, 0);
-            peacock.add(peacockTail);
-
-            const fanCount = 11;
-            for (let i = 0; i < fanCount; i++) {
-                const angle = (i / (fanCount - 1) - 0.5) * Math.PI * 1.0;
-                // Long feather shaft
-                const shaftGeo = new THREE.CylinderGeometry(0.04, 0.02, 1.35, 4);
-                const shaft = new THREE.Mesh(shaftGeo, getPaperMaterial(getStructuralColors(i % 4)));
-                shaft.position.set(
-                    Math.cos(angle + Math.PI/2) * 0.02,
-                    Math.sin(angle + Math.PI/2) * 0.68,
-                    0
-                );
-                shaft.rotation.z = angle;
-                peacockTail.add(shaft);
-                buildFrameOutline(shaftGeo, shaft);
-
-                // Eye spot at tip of each feather
-                const eyeGeo = new THREE.SphereGeometry(0.14, 5, 4);
-                eyeGeo.scale(0.7, 1.0, 0.4);
-                const eye = new THREE.Mesh(eyeGeo, getPaperMaterial(getStructuralColors((i + 2) % 6)));
-                eye.position.set(
-                    Math.cos(angle + Math.PI/2) * 0.04,
-                    Math.sin(angle + Math.PI/2) * 1.38,
-                    0
-                );
-                peacockTail.add(eye);
-
-                attachTasselToPoint(shaft, new THREE.Vector3(0, 0.68, 0), 0.55, getStructuralColors(i), 1);
-            }
-
-            // Legs
-            const legGeo = new THREE.CylinderGeometry(0.1, 0.08, 0.5, 6);
-            [[0.2, -0.62, 0.22], [-0.2, -0.62, 0.22], [0.2, -0.62, -0.22], [-0.2, -0.62, -0.22]].forEach(pos => {
-                const leg = new THREE.Mesh(legGeo, getPaperMaterial(getStructuralColors(2)));
-                leg.position.set(...pos);
-                peacock.add(leg);
-            });
-
-            attachTasselToPoint(peacock, new THREE.Vector3(0, -0.72, 0), 1.8, getStructuralColors(5), 5);
-            return peacock;
-        }
-
-        let eagleWingsL, eagleWingsR;
-        function buildEagleLantern() {
-            const eagle = new THREE.Group();
-
-            // Streamlined body
-            const bodyGeo = new THREE.SphereGeometry(0.52, 9, 7);
-            bodyGeo.scale(1.7, 0.75, 0.8);
-            const body = new THREE.Mesh(bodyGeo, getPaperMaterial(getStructuralColors(3)));
-            eagle.add(body);
-            buildFrameOutline(bodyGeo, body);
-
-            // White-ish head (eagle head)
-            const headGeo = new THREE.SphereGeometry(0.32, 8, 7);
-            const head = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(1)));
-            head.position.set(0.88, 0.28, 0);
-            eagle.add(head);
-            buildFrameOutline(headGeo, head);
-
-            // Hooked beak — curved cone
-            const beakGeo = new THREE.ConeGeometry(0.09, 0.35, 5);
-            const beak = new THREE.Mesh(beakGeo, getPaperMaterial(getStructuralColors(4)));
-            beak.position.set(1.2, 0.16, 0);
-            beak.rotation.z = -Math.PI / 2 + 0.35;
-            eagle.add(beak);
-
-            // Neck
-            const neckGeo = new THREE.CylinderGeometry(0.18, 0.22, 0.42, 7);
-            const neck = new THREE.Mesh(neckGeo, getPaperMaterial(getStructuralColors(3)));
-            neck.position.set(0.72, 0.08, 0);
-            neck.rotation.z = -0.3;
-            eagle.add(neck);
-
-            // Large sweeping wings — multiple segments for a feathered look
-            const makeWing = (side) => {
-                const wingGroup = new THREE.Group();
-                // Main wing panel
-                const mainGeo = new THREE.SphereGeometry(0.8, 8, 5);
-                mainGeo.scale(1.2, 0.15, 0.7);
-                const main = new THREE.Mesh(mainGeo, getPaperMaterial(getStructuralColors(0)));
-                main.position.z = side * 0.45;
-                main.rotation.y = side * -0.25;
-                main.rotation.z = side * -0.15;
-                wingGroup.add(main);
-                buildFrameOutline(mainGeo, main);
-
-                // Wing tip primary feathers
-                for (let f = 0; f < 5; f++) {
-                    const fGeo = new THREE.ConeGeometry(0.08, 0.45, 4);
-                    const feather = new THREE.Mesh(fGeo, getPaperMaterial(getStructuralColors((f+1) % 5)));
-                    const frac = f / 4;
-                    feather.position.set(-0.55 + frac * 0.3, -0.06, side * (0.75 + frac * 0.45));
-                    feather.rotation.z = 0.1;
-                    feather.rotation.x = side * (0.2 - frac * 0.1);
-                    wingGroup.add(feather);
-                }
-                return wingGroup;
-            };
-
-            eagleWingsL = makeWing(1);
-            eagle.add(eagleWingsL);
-            eagleWingsR = makeWing(-1);
-            eagle.add(eagleWingsR);
-
-            // Tail feathers — spread fan
-            const tailGroup = new THREE.Group();
-            tailGroup.position.set(-0.9, 0, 0);
-            eagle.add(tailGroup);
-            for (let t = 0; t < 7; t++) {
-                const tFrac = (t / 6) - 0.5;
-                const tGeo = new THREE.ConeGeometry(0.07, 0.5, 4);
-                const tailFeat = new THREE.Mesh(tGeo, getPaperMaterial(getStructuralColors(t % 4)));
-                tailFeat.position.set(-0.15, 0, tFrac * 0.55);
-                tailFeat.rotation.z = Math.PI/2 + 0.1;
-                tailFeat.rotation.x = tFrac * 0.25;
-                tailGroup.add(tailFeat);
-            }
-
-            // Talons
-            [0.3, -0.3].forEach(z => {
-                const talonGeo = new THREE.CylinderGeometry(0.08, 0.06, 0.4, 5);
-                const talon = new THREE.Mesh(talonGeo, getPaperMaterial(getStructuralColors(4)));
-                talon.position.set(0.3, -0.42, z);
-                eagle.add(talon);
-            });
-
-            attachTasselToPoint(eagle, new THREE.Vector3(-0.7, -0.3, 0), 1.6, getStructuralColors(2), 4);
-            return eagle;
-        }
-
-        let dolphinTailFin;
-        function buildDolphinLantern() {
-            const dolphin = new THREE.Group();
-
-            // Streamlined torpedo body
-            const bodyGeo = new THREE.SphereGeometry(0.42, 9, 7);
-            bodyGeo.scale(2.4, 0.85, 0.95);
-            const body = new THREE.Mesh(bodyGeo, getPaperMaterial(getStructuralColors(0)));
-            dolphin.add(body);
-            buildFrameOutline(bodyGeo, body);
-
-            // Rostrum (beak/snout) — tapered forward
-            const snoutGeo = new THREE.CylinderGeometry(0.18, 0.08, 0.65, 7);
-            const snout = new THREE.Mesh(snoutGeo, getPaperMaterial(getStructuralColors(1)));
-            snout.position.set(1.2, 0.05, 0);
-            snout.rotation.z = Math.PI / 2;
-            dolphin.add(snout);
-            buildFrameOutline(snoutGeo, snout);
-
-            // Melon (forehead bulge)
-            const melonGeo = new THREE.SphereGeometry(0.3, 7, 6);
-            melonGeo.scale(0.95, 1.1, 0.9);
-            const melon = new THREE.Mesh(melonGeo, getPaperMaterial(getStructuralColors(0)));
-            melon.position.set(0.88, 0.25, 0);
-            dolphin.add(melon);
-
-            // Dorsal fin — triangular on top
-            const dorsalGeo = new THREE.ConeGeometry(0.22, 0.65, 4);
-            const dorsal = new THREE.Mesh(dorsalGeo, getPaperMaterial(getStructuralColors(2)));
-            dorsal.position.set(0.1, 0.55, 0);
-            dorsal.rotation.z = -0.15;
-            dolphin.add(dorsal);
-            buildFrameOutline(dorsalGeo, dorsal);
-
-            // Pectoral fins — one on each side
-            const pectGeo = new THREE.SphereGeometry(0.35, 6, 5);
-            pectGeo.scale(0.18, 0.55, 0.8);
-            const pectL = new THREE.Mesh(pectGeo, getPaperMaterial(getStructuralColors(3)));
-            pectL.position.set(0.55, -0.18, 0.42);
-            pectL.rotation.z = 0.4;
-            dolphin.add(pectL);
-            buildFrameOutline(pectGeo, pectL);
-
-            const pectGeoR = new THREE.SphereGeometry(0.35, 6, 5);
-            pectGeoR.scale(0.18, 0.55, 0.8);
-            const pectR = new THREE.Mesh(pectGeoR, getPaperMaterial(getStructuralColors(3)));
-            pectR.position.set(0.55, -0.18, -0.42);
-            pectR.rotation.z = 0.4;
-            dolphin.add(pectR);
-
-            // Tail stock — narrows toward fluke
-            const stockGeo = new THREE.CylinderGeometry(0.22, 0.12, 0.55, 7);
-            const stock = new THREE.Mesh(stockGeo, getPaperMaterial(getStructuralColors(0)));
-            stock.position.set(-1.1, -0.05, 0);
-            stock.rotation.z = Math.PI / 2;
-            dolphin.add(stock);
-
-            // Flukes — horizontal tail fins
-            dolphinTailFin = new THREE.Group();
-            dolphinTailFin.position.set(-1.42, -0.05, 0);
-            dolphin.add(dolphinTailFin);
-
-            const flukeGeo = new THREE.SphereGeometry(0.42, 6, 5);
-            flukeGeo.scale(0.22, 0.3, 1.3);
-            const flukes = new THREE.Mesh(flukeGeo, getPaperMaterial(getStructuralColors(4)));
-            dolphinTailFin.add(flukes);
-            buildFrameOutline(flukeGeo, flukes);
-
-            // Notch in center of flukes
-            const notchGeo = new THREE.SphereGeometry(0.12, 5, 4);
-            const notch = new THREE.Mesh(notchGeo, getPaperMaterial(getStructuralColors(1)));
-            notch.position.set(0.1, 0, 0);
-            dolphinTailFin.add(notch);
-
-            attachTasselToPoint(dolphin, new THREE.Vector3(0.4, -0.45, 0), 1.3, getStructuralColors(1), 3);
-            attachTasselToPoint(dolphin, new THREE.Vector3(-0.5, -0.4, 0), 1.7, getStructuralColors(2), 4);
-            return dolphin;
-        }
-
-        let dragonHornL, dragonHornR;
-        function buildDragonLantern() {
-            const dragon = new THREE.Group();
-
-            // Serpentine body — curved segments
-            const segCount = 7;
-            for (let i = 0; i < segCount; i++) {
-                const frac = i / (segCount - 1);
-                const radius = 0.38 - frac * 0.14;
-                const segGeo = new THREE.SphereGeometry(radius, 8, 6);
-                const seg = new THREE.Mesh(segGeo, getPaperMaterial(getStructuralColors(i)));
-                const px = -i * 0.52;
-                const py = Math.sin(i * 0.85) * 0.32;
-                seg.position.set(px, py, 0);
-                dragon.add(seg);
-                buildFrameOutline(segGeo, seg);
-
-                // Spiky ridges on back
-                const ridgeGeo = new THREE.ConeGeometry(0.08, 0.32, 4);
-                const ridge = new THREE.Mesh(ridgeGeo, getPaperMaterial(getStructuralColors((i+3) % 6)));
-                ridge.position.set(px, py + radius + 0.16, 0);
-                dragon.add(ridge);
-
-                attachTasselToPoint(seg, new THREE.Vector3(0, -radius - 0.05, 0), 0.9, getStructuralColors(i+1), 2);
-            }
-
-            // Large fearsome head
-            const headGeo = new THREE.SphereGeometry(0.52, 10, 8);
-            headGeo.scale(1.4, 0.85, 0.9);
-            const head = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(3)));
-            head.position.set(0.72, 0.22, 0);
-            dragon.add(head);
-            buildFrameOutline(headGeo, head);
-
-            // Jaw/snout
-            const jawGeo = new THREE.SphereGeometry(0.35, 8, 6);
-            jawGeo.scale(1.5, 0.55, 0.75);
-            const jaw = new THREE.Mesh(jawGeo, getPaperMaterial(getStructuralColors(0)));
-            jaw.position.set(1.08, 0.02, 0);
-            dragon.add(jaw);
-
-            // Two swept-back horns
-            const hornGeo = new THREE.CylinderGeometry(0.06, 0.02, 0.58, 5);
-            dragonHornL = new THREE.Mesh(hornGeo, getPaperMaterial(getStructuralColors(5)));
-            dragonHornL.position.set(0.6, 0.72, 0.28);
-            dragonHornL.rotation.set(0.3, 0.1, -0.45);
-            dragon.add(dragonHornL);
-            buildFrameOutline(hornGeo, dragonHornL);
-
-            dragonHornR = new THREE.Mesh(hornGeo, getPaperMaterial(getStructuralColors(5)));
-            dragonHornR.position.set(0.6, 0.72, -0.28);
-            dragonHornR.rotation.set(-0.3, -0.1, -0.45);
-            dragon.add(dragonHornR);
-            buildFrameOutline(hornGeo, dragonHornR);
-
-            // Large bat-like wings
-            const makeWing = (side) => {
-                const wg = new THREE.Group();
-                // Main membrane
-                const memGeo = new THREE.SphereGeometry(0.7, 7, 5);
-                memGeo.scale(1.1, 0.22, 0.85);
-                const mem = new THREE.Mesh(memGeo, getPaperMaterial(getStructuralColors(2)));
-                mem.rotation.z = side * -0.3;
-                wg.add(mem);
-                buildFrameOutline(memGeo, mem);
-                // Wing claw tips
-                for (let c = 0; c < 3; c++) {
-                    const clGeo = new THREE.ConeGeometry(0.05, 0.35, 4);
-                    const cl = new THREE.Mesh(clGeo, getPaperMaterial(getStructuralColors(4)));
-                    cl.position.set(-0.35 + c * 0.22, -0.08, side * (0.55 + c * 0.12));
-                    cl.rotation.x = side * 0.4;
-                    wg.add(cl);
-                }
-                return wg;
-            };
-
-            const wingL = makeWing(1);
-            wingL.position.set(-0.55, 0.45, 0);
-            dragon.add(wingL);
-
-            const wingR = makeWing(-1);
-            wingR.position.set(-0.55, 0.45, 0);
-            dragon.add(wingR);
-
-            // Curved tail ending in a spade tip
-            const tailGroup = new THREE.Group();
-            tailGroup.position.set(-3.8, Math.sin(6 * 0.85) * 0.32, 0);
-            dragon.add(tailGroup);
-            const spadeGeo = new THREE.SphereGeometry(0.25, 6, 5);
-            spadeGeo.scale(0.5, 1.4, 0.4);
-            const spade = new THREE.Mesh(spadeGeo, getPaperMaterial(getStructuralColors(1)));
-            tailGroup.add(spade);
-            buildFrameOutline(spadeGeo, spade);
-
-            return dragon;
-        }
-
-        let monsterTail;
-        function buildKapaMonster() {
-            const monster = new THREE.Group();
-
-            // Massive head with gaping maw
-            const headGeo = new THREE.SphereGeometry(0.6, 10, 8);
-            headGeo.scale(1.2, 0.9, 1.0);
-            const head = new THREE.Mesh(headGeo, getPaperMaterial(getStructuralColors(0)));
-            head.position.set(0.7, 0.15, 0);
-            monster.add(head);
-            buildFrameOutline(headGeo, head);
-
-            // Lower jaw
-            const jawGeo = new THREE.SphereGeometry(0.45, 8, 6);
-            jawGeo.scale(1.2, 0.5, 0.85);
-            const jaw = new THREE.Mesh(jawGeo, getPaperMaterial(getStructuralColors(1)));
-            jaw.position.set(0.9, -0.22, 0);
-            monster.add(jaw);
-
-            // Teeth — spiky cones in rows
-            for (let t = 0; t < 6; t++) {
-                const toothGeo = new THREE.ConeGeometry(0.07, 0.24, 4);
-                const tooth = new THREE.Mesh(toothGeo, getPaperMaterial(getStructuralColors(5)));
-                tooth.position.set(0.9 + (t % 3) * 0.18, -0.05 + (t < 3 ? 0 : -0.16), (t - 2.5) * 0.22);
-                tooth.rotation.z = t < 3 ? 0 : Math.PI;
-                monster.add(tooth);
-            }
-
-            // Eyes — large glowing orbs
-            const eyeGeo = new THREE.SphereGeometry(0.18, 7, 6);
-            const eyeL = new THREE.Mesh(eyeGeo, getPaperMaterial(getStructuralColors(4)));
-            eyeL.position.set(0.75, 0.42, 0.48);
-            monster.add(eyeL);
-            buildFrameOutline(eyeGeo, eyeL);
-            const eyeR = new THREE.Mesh(eyeGeo, getPaperMaterial(getStructuralColors(4)));
-            eyeR.position.set(0.75, 0.42, -0.48);
-            monster.add(eyeR);
-
-            // Head crest / spines
-            for (let s = 0; s < 5; s++) {
-                const spineGeo = new THREE.ConeGeometry(0.07, 0.4 - s * 0.04, 5);
-                const spine = new THREE.Mesh(spineGeo, getPaperMaterial(getStructuralColors(2)));
-                spine.position.set(0.9 - s * 0.22, 0.68 + Math.sin(s * 0.8) * 0.1, 0);
-                monster.add(spine);
-            }
-
-            // Neck ridges leading into undulating body
-            const count = 5;
-            for (let i = 0; i < count; i++) {
-                const frac = (i + 1) / count;
-                const r = 0.38 - frac * 0.08;
-                const segGeo = new THREE.SphereGeometry(r, 8, 6);
-                const seg = new THREE.Mesh(segGeo, getPaperMaterial(getStructuralColors(i)));
-                seg.position.set(-i * 0.58, Math.sin(i * 0.9) * 0.35 + 0.1, 0);
-                monster.add(seg);
-                buildFrameOutline(segGeo, seg);
-
-                // Dorsal fin on each body segment
-                const dfGeo = new THREE.ConeGeometry(0.09, 0.35, 4);
-                const df = new THREE.Mesh(dfGeo, getPaperMaterial(getStructuralColors((i+3) % 6)));
-                df.position.set(-i * 0.58, Math.sin(i * 0.9) * 0.35 + 0.1 + r + 0.18, 0);
-                monster.add(df);
-
-                attachTasselToPoint(seg, new THREE.Vector3(0, -r - 0.05, 0), 1.0, getStructuralColors(i+2), 2);
-            }
-
-            // Fluke tail — horizontal fan at end
-            monsterTail = new THREE.Group();
-            monsterTail.position.set(-count * 0.58, Math.sin(count * 0.9) * 0.35 + 0.1, 0);
-            monster.add(monsterTail);
-
-            for (let f = 0; f < 5; f++) {
-                const fGeo = new THREE.SphereGeometry(0.32, 6, 5);
-                fGeo.scale(0.22, 0.28, 1.1);
-                const fluke = new THREE.Mesh(fGeo, getPaperMaterial(getStructuralColors(f % 4)));
-                fluke.rotation.z = (f - 2) * 0.22;
-                fluke.position.set(-0.1, (f - 2) * 0.05, (f - 2) * 0.2);
-                monsterTail.add(fluke);
-                buildFrameOutline(fGeo, fluke);
-            }
-
-            // Front flippers
-            const flipGeo = new THREE.SphereGeometry(0.38, 6, 5);
-            flipGeo.scale(0.22, 0.5, 1.0);
-            const flipL = new THREE.Mesh(flipGeo, getPaperMaterial(getStructuralColors(3)));
-            flipL.position.set(0.2, -0.3, 0.62);
-            flipL.rotation.z = 0.4;
-            monster.add(flipL);
-            buildFrameOutline(flipGeo, flipL);
-
-            const flipGeoR = new THREE.SphereGeometry(0.38, 6, 5);
-            flipGeoR.scale(0.22, 0.5, 1.0);
-            const flipR = new THREE.Mesh(flipGeoR, getPaperMaterial(getStructuralColors(3)));
-            flipR.position.set(0.2, -0.3, -0.62);
-            flipR.rotation.z = 0.4;
-            monster.add(flipR);
-
-            return monster;
-        }
-
-        function setDimension(dimensionId) {
-            currentDimension = dimensionId;
-
-            if (dimensionId === 'techno') {
-                isTransitioning = true;
-                transitionTimer = 0;
-            }
-
-            const body = document.getElementById('body-root');
-            body.className = `w-screen h-screen relative select-none text-gray-200 scenery-${dimensionId}`;
-
-            const headerGlass = document.getElementById('header-glass');
-            const footerGlass = document.getElementById('footer-glass');
-            const appTitle = document.getElementById('app-title');
-
-            const dimButtons = ['traditional', 'techno', 'water', 'crazy'];
-            dimButtons.forEach(dim => {
-                const btn = document.getElementById(`dim-btn-${dim}`);
-                if (dim === dimensionId) {
-                    btn.className = "glow-btn bg-vesak-amber/20 text-white font-medium text-[9px] md:text-xs py-2 md:py-3 px-1 md:px-2 rounded-xl border border-vesak-amber/40 transition-all flex flex-col items-center gap-0.5 md:gap-1";
-                } else {
-                    btn.className = "glow-btn bg-black/40 text-gray-400 font-medium text-[9px] md:text-xs py-2 md:py-3 px-1 md:px-2 rounded-xl border border-white/5 transition-all flex flex-col items-center gap-0.5 md:gap-1";
-                }
-            });
-
-            if (dimensionId === 'techno') {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-widest text-vesak-neonGreen glow-neon";
-                appTitle.innerText = "EMERALDISLE";
-                headerGlass.style.borderColor = "rgba(57, 255, 20, 0.4)";
-                footerGlass.style.borderColor = "rgba(57, 255, 20, 0.4)";
-                document.getElementById('header-icon').innerText = "👾";
-                
-                scene.fog.color.setHex(0x000402);
-                ambientLight.color.setHex(0x021a10);
-                directionalLight.color.setHex(0x39ff14);
-                internalBulb.color.setHex(0x00f0ff);
-                buildSceneryDecorations(dimensionId);
-            } else if (dimensionId === 'water') {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-neonBlue glow-emerald";
-                appTitle.innerText = "EMERALDISLE.EXE";
-                headerGlass.style.borderColor = "rgba(0, 240, 255, 0.4)";
-                footerGlass.style.borderColor = "rgba(0, 240, 255, 0.4)";
-                document.getElementById('header-icon').innerText = "🌊";
-
-                scene.fog.color.setHex(0x00080f);
-                ambientLight.color.setHex(0x011728);
-                directionalLight.color.setHex(0x00ffff);
-                internalBulb.color.setHex(0x7fdbff);
-                buildSceneryDecorations(dimensionId);
-            } else if (dimensionId === 'crazy') {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-purple glow-emerald";
-                appTitle.innerText = "EMERALDISLE.EXE";
-                headerGlass.style.borderColor = "rgba(211, 0, 197, 0.4)";
-                footerGlass.style.borderColor = "rgba(211, 0, 197, 0.4)";
-                document.getElementById('header-icon').innerText = "🤪";
-
-                scene.fog.color.setHex(0x080008);
-                ambientLight.color.setHex(0x280122);
-                directionalLight.color.setHex(0xff1493);
-                internalBulb.color.setHex(0xff00ff);
-                buildSceneryDecorations(dimensionId);
-            } else {
-                appTitle.className = "font-mono font-bold text-sm md:text-2xl tracking-wide text-vesak-gold glow-emerald";
-                appTitle.innerText = "EMERALDISLE.EXE";
-                headerGlass.style.borderColor = "rgba(255, 215, 0, 0.15)";
-                footerGlass.style.borderColor = "rgba(255, 215, 0, 0.15)";
-                document.getElementById('header-icon').innerText = "🏮";
-
-                scene.fog.color.setHex(0x05070b);
-                ambientLight.color.setHex(0x0a1128);
-                directionalLight.color.setHex(0x4b5563);
-                internalBulb.color.setHex(0xffb347);
-                buildSceneryDecorations(dimensionId);
-            }
-
-            updateCategoryLabels();
-            loadLanternDesign();
-        }
-
-        function checkAndApplyTraditionalDaySetting(designId) {
-            if (currentDimension !== 'traditional') return;
-
-            const body = document.getElementById('body-root');
-            const isDayModel = (designId === 'atapattam' || designId === 'nelum' || designId === 'maha');
-
-            if (isDayModel) {
-                body.className = "w-screen h-screen relative select-none text-gray-200 scenery-traditional-day";
-                scene.fog.color.setHex(0xfef08a);
-                ambientLight.color.setHex(0xfffad2);
-                directionalLight.color.setHex(0xffedd5);
-                directionalLight.intensity = 1.6;
-                internalBulb.color.setHex(0xfffad2);
-                buildSceneryDecorations('traditional-day');
-            } else {
-                body.className = "w-screen h-screen relative select-none text-gray-200 scenery-traditional";
-                scene.fog.color.setHex(0x05070b);
-                ambientLight.color.setHex(0x0a1128);
-                directionalLight.color.setHex(0x4b5563);
-                directionalLight.intensity = 0.8;
-                internalBulb.color.setHex(0xffb347);
-                buildSceneryDecorations('traditional');
-            }
-        }
-
-        function updateCategoryLabels() {
-            const isCrazy = currentDimension === 'crazy';
-            document.getElementById('txt-cat-0').innerText = isCrazy ? "Mammals & Beasts" : "Traditional Series";
-            document.getElementById('txt-cat-1').innerText = isCrazy ? "Birds & Feathers" : "Geometrics";
-            document.getElementById('txt-cat-2').innerText = isCrazy ? "Sea & Mythic" : "Monolithic Sets";
-        }
-
-        function changeCategory(catIdx) {
-            activeCategoryIndex = catIdx;
-            subDesignIndices[catIdx] = (subDesignIndices[catIdx] + 1) % lanternDesigns[catIdx].length;
-            loadLanternDesign();
-        }
-
-        function loadLanternDesign() {
-            if (mainLanternGroup) {
-                scene.remove(mainLanternGroup);
-            }
-
-            activeTassels = [];
-            activeMaterials = []; 
-
-            const currentSubIdx = subDesignIndices[activeCategoryIndex];
-            const designMeta = lanternDesigns[activeCategoryIndex][currentSubIdx];
-            
-            mainLanternGroup = new THREE.Group();
-            let lanternModel;
-
-            if (currentDimension === 'crazy') {
-                switch(designMeta.id) {
-                    case 'atapattam': lanternModel = buildElephantLantern(); break;
-                    case 'barrel': lanternModel = buildLionLantern(); break;
-                    case 'nelum': lanternModel = buildBullLantern(); break;
-                    case 'star': lanternModel = buildSwanLantern(); break;
-                    case 'diamond': lanternModel = buildPeacockLantern(); break;
-                    case 'hexnest': lanternModel = buildEagleLantern(); break;
-                    case 'double': lanternModel = buildDolphinLantern(); break;
-                    case 'maha': lanternModel = buildDragonLantern(); break;
-                    case 'triple': lanternModel = buildKapaMonster(); break;
-                }
-            } else {
-                switch(designMeta.id) {
-                    case 'atapattam': lanternModel = buildAtapattam(); break;
-                    case 'barrel': lanternModel = buildBarrelLantern(); break;
-                    case 'nelum': lanternModel = buildNelumKuduwa(); break;
-                    case 'star': lanternModel = buildStarLantern(); break;
-                    case 'diamond': lanternModel = buildDiamondLantern(); break;
-                    case 'hexnest': lanternModel = buildHexNestLantern(); break;
-                    case 'double': lanternModel = buildDoubleDecker(); break;
-                    case 'maha': lanternModel = buildMahaKuduwa(); break;
-                    case 'triple': lanternModel = buildTripleCascade(); break;
-                }
-            }
-
-            mainLanternGroup.add(lanternModel);
-            scene.add(mainLanternGroup);
-            mainLanternGroup.position.set(0, 0, 0);
-
-            checkAndApplyTraditionalDaySetting(designMeta.id);
-
-            // Populating minimal center display name and updating informational overlays
-            const nameBadge = document.getElementById('current-design-badge');
-            const printedName = currentDimension === 'crazy' ? designMeta.animalName : designMeta.name;
-            nameBadge.innerText = printedName;
-        }
-
-        function toggleInfoModal(visible) {
-            const modal = document.getElementById('info-modal');
-            const card = document.getElementById('info-modal-card');
-            
-            if (visible) {
-                const currentSubIdx = subDesignIndices[activeCategoryIndex];
-                const designMeta = lanternDesigns[activeCategoryIndex][currentSubIdx];
-                const isCrazy = currentDimension === 'crazy';
-
-                document.getElementById('modal-icon').innerText = isCrazy ? "🦄" : "🏮";
-                document.getElementById('modal-dim-label').innerText = currentDimension.toUpperCase() + " REALITY";
-                document.getElementById('modal-title').innerText = isCrazy ? designMeta.animalName : designMeta.name;
-                document.getElementById('modal-desc').innerText = designMeta.desc;
-
-                const animalContainer = document.getElementById('modal-animal-container');
-                if (isCrazy) {
-                    animalContainer.classList.remove('hidden');
-                    document.getElementById('modal-animal').innerText = designMeta.animalName + " (Form Mapping from " + designMeta.name + ")";
-                } else {
-                    animalContainer.classList.add('hidden');
-                }
-
-                modal.classList.remove('pointer-events-none');
-                modal.classList.add('opacity-100');
-                card.classList.remove('scale-95');
-                card.classList.add('scale-100');
-            } else {
-                modal.classList.add('pointer-events-none');
-                modal.classList.remove('opacity-100');
-                card.classList.add('scale-95');
-                card.classList.remove('scale-100');
-            }
-        }
-
-        function toggleCinematic(activate, event) {
-            if (event) {
-                event.stopPropagation();
-            }
-            
-            cinematicActive = activate;
-            const hud = document.getElementById('hud-container');
-            const overlay = document.getElementById('cinematic-overlay');
-
-            if (cinematicTimer) {
-                clearInterval(cinematicTimer);
-                cinematicTimer = null;
-            }
-
-            if (activate) {
-                // Hide HUD entirely
-                hud.style.opacity = '0';
-                hud.style.pointerEvents = 'none';
-                hud.style.transform = 'scale(0.95)';
-
-                // Open the screen-wide overlay
-                overlay.style.display = 'flex';
-                overlay.style.pointerEvents = 'auto';
-                // Add click anywhere to exit
-                overlay.onclick = function(e) { toggleCinematic(false, e); };
-                setTimeout(() => {
-                    overlay.style.opacity = '1';
-                }, 50);
-
-                // Disable OrbitControls so manual panning doesn't conflict with automated camera paths
-                controls.enabled = false;
-                controls.autoRotate = true;
-                controls.autoRotateSpeed = 0.8;
-
-                cinematicTimer = setInterval(() => {
-                    cycleNextDesign();
-                }, 7000);
-
-            } else {
-                // Instantly block overlay from absorbing clicks during exit transition
-                overlay.onclick = null;
-                overlay.style.pointerEvents = 'none';
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                }, 1000);
-
-                // Restore HUD
-                hud.style.opacity = '1';
-                hud.style.transform = 'scale(1)';
-                
-                // CRITICAL FIX: The HUD container wrapper MUST revert to pointer-events-none!
-                // This ensures its empty space lets clicks through to the WebGL canvas,
-                // while individual header/footer panels remain hoverable/clickable via pointer-events-auto.
-                hud.style.pointerEvents = 'none';
-
-                // Safely re-enable and update controls
-                controls.autoRotate = false;
-                controls.enabled = true;
-                controls.update();
-            }
-        }
-
-        function cycleNextDesign() {
-            let currentFlatIdx = 0;
-            if (activeCategoryIndex === 0) currentFlatIdx = subDesignIndices[0];
-            else if (activeCategoryIndex === 1) currentFlatIdx = 3 + subDesignIndices[1];
-            else currentFlatIdx = 6 + subDesignIndices[2];
-
-            const nextFlatIdx = (currentFlatIdx + 1) % 9;
-            
-            if (nextFlatIdx < 3) {
-                activeCategoryIndex = 0;
-                subDesignIndices[0] = nextFlatIdx;
-            } else if (nextFlatIdx < 6) {
-                activeCategoryIndex = 1;
-                subDesignIndices[1] = nextFlatIdx - 3;
-            } else {
-                activeCategoryIndex = 2;
-                subDesignIndices[2] = nextFlatIdx - 6;
-            }
-
-            loadLanternDesign();
-        }
-
-        function toggleFlicker() {
-            candleFlickerEnabled = !candleFlickerEnabled;
-            const btn = document.getElementById('flicker-toggle');
-            if (candleFlickerEnabled) {
-                btn.innerText = "ON";
-                btn.className = "bg-vesak-amber/20 hover:bg-vesak-amber/30 text-vesak-amber border border-vesak-amber/30 text-[9px] md:text-[10px] px-2 py-0.5 rounded transition-all font-bold";
-            } else {
-                btn.innerText = "OFF";
-                btn.className = "bg-black/40 hover:bg-red-500/10 text-gray-400 border border-white/10 text-[9px] md:text-[10px] px-2 py-0.5 rounded transition-all";
-                internalBulb.intensity = 4.0; 
-                activeMaterials.forEach(mat => {
-                    if (mat.uniforms && mat.uniforms.uFlicker) {
-                        mat.uniforms.uFlicker.value = 0.0;
-                    }
-                });
-            }
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            const elapsed = clock.getElapsedTime();
-
-            let flickerVal = 0.0;
-            if (candleFlickerEnabled) {
-                const fFreq = currentDimension === 'crazy' ? 24.0 : 12.0;
-                flickerVal = Math.sin(elapsed * fFreq) * Math.cos(elapsed * (fFreq * 1.5)) * 0.55;
-                const windNoise = Math.sin(elapsed * 25.0) * windStrength * 0.2;
-                const basePower = currentDimension === 'crazy' ? 5.5 : 4.0;
-                internalBulb.intensity = basePower + flickerVal - windNoise;
-            }
-
-            activeMaterials.forEach(mat => {
-                if (mat.uniforms) {
-                    if (mat.uniforms.uTime) mat.uniforms.uTime.value = elapsed;
-                    if (mat.uniforms.uFlicker) mat.uniforms.uFlicker.value = flickerVal;
-                }
-            });
-
-            // Physical sways and wiggles based on selected dimensions
-            if (mainLanternGroup) {
-                if (currentDimension === 'crazy') {
-                    // Cosmic animal swoop paths
-                    const loopCycle = elapsed * 1.3;
-                    mainLanternGroup.position.z = Math.sin(loopCycle) * 3.8 - 0.5;
-                    mainLanternGroup.position.x = Math.cos(loopCycle * 0.5) * 2.2;
-                    mainLanternGroup.position.y = Math.sin(loopCycle * 0.8) * 0.9;
-                    
-                    mainLanternGroup.rotation.y += 0.015;
-                    mainLanternGroup.rotation.z = Math.sin(elapsed) * 0.2;
-
-                    // Extremities wiggles
-                    const wiggleSpeed = 15.0;
-                    if (elephantEarLeft) elephantEarLeft.rotation.y = Math.sin(elapsed * wiggleSpeed) * 0.25;
-                    if (elephantEarRight) elephantEarRight.rotation.y = -Math.sin(elapsed * wiggleSpeed) * 0.25;
-                    if (elephantTrunk) elephantTrunk.rotation.z = -0.3 + Math.cos(elapsed * wiggleSpeed * 0.5) * 0.15;
-                    if (lionSnout) lionSnout.position.y = 0.4 + Math.sin(elapsed * 10.0) * 0.03;
-                    if (bullHead) bullHead.rotation.y = Math.sin(elapsed * 8.0) * 0.2;
-                    if (swanWingsL) swanWingsL.rotation.z = Math.sin(elapsed * 12.0) * 0.3;
-                    if (swanWingsR) swanWingsR.rotation.z = -Math.sin(elapsed * 12.0) * 0.3;
-                    if (peacockTail) peacockTail.rotation.y = Math.sin(elapsed * 6.0) * 0.2;
-                    if (eagleWingsL) eagleWingsL.rotation.z = Math.sin(elapsed * 14.0) * 0.35;
-                    if (eagleWingsR) eagleWingsR.rotation.z = -Math.sin(elapsed * 14.0) * 0.35;
-                    if (dolphinTailFin) dolphinTailFin.rotation.x = Math.sin(elapsed * wiggleSpeed) * 0.4;
-                    if (dragonHornL) dragonHornL.rotation.x = Math.sin(elapsed * 8.0) * 0.2;
-                    if (dragonHornR) dragonHornR.rotation.x = -Math.sin(elapsed * 8.0) * 0.2;
-                    if (monsterTail) monsterTail.rotation.z = Math.sin(elapsed * 12.0) * 0.3;
-
-                } else if (currentDimension === 'water') {
-                    // Liquid buoyancy
-                    mainLanternGroup.position.y = Math.sin(elapsed * 1.2) * 0.25;
-                    mainLanternGroup.position.x = Math.cos(elapsed * 0.8) * 0.15;
-                    
-                    mainLanternGroup.rotation.x = Math.sin(elapsed * 0.5) * 0.08;
-                    mainLanternGroup.rotation.z = Math.cos(elapsed * 0.4) * 0.08;
-                    mainLanternGroup.rotation.y += 0.003;
-                } else {
-                    mainLanternGroup.position.set(0, 0, 0);
-                    const swingX = Math.sin(elapsed * windSpeed * 0.85) * windStrength * 0.055;
-                    const swingZ = Math.cos(elapsed * windSpeed * 0.65) * windStrength * 0.045;
-                    mainLanternGroup.rotation.x = swingX;
-                    mainLanternGroup.rotation.z = swingZ;
-                    
-                    mainLanternGroup.rotation.y += 0.003;
-                }
-
-                // Glitch transitions
-                if (currentDimension === 'techno' && isTransitioning) {
-                    transitionTimer += 0.02;
-                    if (transitionTimer < 1.0) {
-                        const noise = Math.sin(elapsed * 80.0) * 0.15;
-                        const factor = THREE.MathUtils.lerp(0.1, 1.0, transitionTimer) + noise;
-                        mainLanternGroup.scale.set(factor, factor, factor);
-                    } else {
-                        mainLanternGroup.scale.set(1, 1, 1);
-                        isTransitioning = false;
-                    }
-                } else if (currentDimension !== 'crazy') {
-                    mainLanternGroup.scale.set(1, 1, 1);
-                }
-            }
-
-            // Animate Scenery elements
-            environmentGroup.children.forEach(prop => {
-                if (prop.name === "crazyNebulaOrbits") {
-                    prop.rotation.y = elapsed * 0.1;
-                }
-            });
-
-            activeTassels.forEach(tassel => {
-                tassel.update(elapsed, windSpeed, windStrength);
-            });
-
-            if (starField) {
-                starField.rotation.y = elapsed * 0.0015;
-            }
-
-            if (fireflies) {
-                const flyPositions = fireflies.geometry.attributes.position.array;
-                const count = flyPositions.length;
-                
-                for (let i = 0; i < count; i += 3) {
-                    if (currentDimension === 'water') {
-                        flyPositions[i+1] += 0.012 + (Math.sin(elapsed + i) * 0.001);
-                        flyPositions[i] += Math.cos(elapsed * 0.6 + i) * 0.004;
-                        if (flyPositions[i+1] > 5) {
-                            flyPositions[i+1] = -5;
-                        }
-                    } else if (currentDimension === 'techno') {
-                        flyPositions[i+1] -= 0.022 + (Math.cos(elapsed + i) * 0.002);
-                        flyPositions[i] += Math.sin(elapsed * 0.3 + i) * 0.002;
-                        if (flyPositions[i+1] < -5) {
-                            flyPositions[i+1] = 5;
-                        }
-                    } else if (currentDimension === 'crazy') {
-                        flyPositions[i] += Math.sin(elapsed * 2.0 + i) * 0.015;
-                        flyPositions[i+1] += Math.cos(elapsed * 2.0 + i) * 0.015;
-                        flyPositions[i+2] += Math.sin(elapsed * 1.5) * 0.015;
-                    } else if (currentDimension === 'traditional' && document.getElementById('body-root').className.includes('traditional-day')) {
-                        // Drift downwards and sideways like blossom petals
-                        flyPositions[i+1] -= 0.008 + (Math.sin(elapsed + i) * 0.001);
-                        flyPositions[i] += Math.sin(elapsed * 0.2 + i) * 0.004;
-                        if (flyPositions[i+1] < -5) {
-                            flyPositions[i+1] = 5;
-                        }
-                    } else {
-                        flyPositions[i+1] += Math.sin(elapsed * 0.4 + i) * 0.0025;
-                        flyPositions[i] += Math.cos(elapsed * 0.2 + i) * 0.002;
-                        if (flyPositions[i+1] < -5) flyPositions[i+1] = 5;
-                    }
-                }
-                fireflies.geometry.attributes.position.needsUpdate = true;
-            }
-
-            if (cinematicActive) {
-                camera.position.y = 0.6 + Math.sin(elapsed * 0.3) * 0.9;
-            }
-
-            controls.update();
-            renderer.render(scene, camera);
-        }
-    </script>
-</body>
-</html>
